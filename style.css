@@ -1,0 +1,7 @@
+/* Style sheet. Add whatever seems good. */
+* {
+    color: lime;
+    background-color: black;
+    margin: auto;
+    width: 80%;
+}
