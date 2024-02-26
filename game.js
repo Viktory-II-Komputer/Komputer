@@ -12,11 +12,11 @@ export class Game
                 console.log("Constructing Tic Tac Toe.");
                 break;
             case "checkers":
-                this.setup = new Checkers()
-                console.log("Constructing checkers.")
+                console.log("Constructing checkers.");
+                this.setup = new Checkers();
+                this.board = this.setup.getNewBoard();
                 break;
             default:
-                this.type = null;
                 console.log("Warning: invalid game.")
                 break;
         }

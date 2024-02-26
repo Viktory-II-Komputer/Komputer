@@ -16,4 +16,5 @@ while(game.hasWinner === false)
     agent.continue();
 }
 
+console.log("");
 console.log("End script.");
