@@ -1,4 +1,4 @@
-export class Checkers 
+export class CheckersRules 
 {
     constructor()
     {

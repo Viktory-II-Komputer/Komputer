@@ -1,4 +1,4 @@
-import { Checkers } from "./checkers.js";
+import { CheckersRules } from "./checkers.js";
 
 export class Game 
 {
@@ -13,8 +13,8 @@ export class Game
                 break;
             case "checkers":
                 console.log("Constructing checkers.");
-                this.setup = new Checkers();
-                this.board = this.setup.getNewBoard();
+                this.rules = new CheckersRules();
+                this.board = this.rules.getNewBoard();
                 break;
             default:
                 console.log("Warning: invalid game.")
