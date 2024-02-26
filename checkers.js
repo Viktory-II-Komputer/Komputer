@@ -24,4 +24,10 @@ export class CheckersRules
             return this.boardRecycler.pop();
         }
     }
+
+    getNextPossibleStates()
+    {
+        // Todo: fix this.
+        return [0, 1, 2, 3];
+    }
 }
