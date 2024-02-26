@@ -19,7 +19,7 @@ export class Agent
         console.log("Continue play.")
         this.game.nextPossibleStates = this.game.rules.getNextPossibleStates();
 
-        // Temp code, until getNextPossibleStates is done.
+        // Temp code to break the game loop, until getNextPossibleStates is done.
         if (Math.random() < 0.1)
         {
             this.game.hasWinner = true;
