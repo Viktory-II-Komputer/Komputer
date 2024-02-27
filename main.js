@@ -8,12 +8,15 @@ const AGENT_TYPE = "Random"
 let game = new Game(GAME_TO_PLAY);
 let agent = new Agent(AGENT_TYPE); 
 
-agent.begin(game);
+agent.begin(game, true);
 
 // Update loop
-while(game.hasWinner === false) 
+let [turnCount, TURN_MAX] = [0, 200];
+while(game.hasWinner === false && turnCount < TURN_MAX) 
 {
     agent.continue();
+    agent.isPlayer1 = !agent.isPlayer1;
+    console.log("End turn: " + ++turnCount);
 }
 
 console.log("");
