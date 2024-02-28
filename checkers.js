@@ -23,6 +23,7 @@ const QUEEN = 'Q'  // Player2 royal.
 const BOARD_WIDTH = 4;        
 const BOARD_HEIGHT = 8;
 const BOARD_CELL_COUNT = 32;
+const HAS_CHECKERS_PATTERN = true;  // For board logs.
 const KING_PROMOTION_MAX = 4; // Max index, exclusive, of the top row.
 const QUEEN_PROMOTION_MIN = 27; // Min index, exclusive, of the bottom row. 
 
@@ -35,7 +36,7 @@ export class CheckersRules
 
     getNewBoard()
     {
-        return ["WWWWWWWWWWWW++++++++MMMMMMMMMMMM", BOARD_HEIGHT, BOARD_WIDTH] 
+        return ["WWWWWWWWWWWW++++++++MMMMMMMMMMMM", BOARD_HEIGHT, BOARD_WIDTH, HAS_CHECKERS_PATTERN] 
     }
 
     getNewBoardFromMove (board, originIndex, destinationIndex, opponentIndex = null)
@@ -511,6 +512,29 @@ export class CheckersRules
             return null;
         else
             return index + 9;
+    }
+
+    ///  Interface to console log boards in a checkers pattern.
+    getSpecialPattern(board, textRow, x, y)
+    {
+        let cellIndex = (y * BOARD_WIDTH) + x;
+        if (y % 2 == 1)
+        {
+            textRow.push(board[cellIndex]);
+            textRow.push(" ")
+        }
+        else if (x % BOARD_WIDTH == 0)
+        {
+            textRow.push(" ");
+            textRow.push(board[cellIndex])
+            textRow.push(" ");
+        }
+        else
+        {
+            textRow.push(board[cellIndex])
+            textRow.push(" ");
+        }
+        return textRow;
     }
 
 } // End class 

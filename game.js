@@ -15,7 +15,8 @@ export class Game
             case "checkers":
                 console.log("Constructing Checkers.");
                 this.rules = new CheckersRules();
-                [this.board, this.boardHeight, this.boardWidth] = this.rules.getNewBoard();
+                [this.board, this.boardHeight, this.boardWidth,
+                 this.hasSpecialPattern] = this.rules.getNewBoard();
                 break;
             default:
                 console.error("Error: invalid game.")
@@ -32,20 +33,14 @@ export class Game
         {
             for (let x = 0; x < this.boardWidth; x++)
             {
-                let cellIndex = (y * this.boardWidth) + x;
-                if (y % 2 == 1)
+                if (this.hasSpecialPattern)
                 {
-                    textRow.push(this.board[cellIndex]);
-                    textRow.push(" ")
-                }
-                else if (x % 4 == 0)
-                {
-                    textRow.push(" ");
-                    textRow.push(this.board[cellIndex])
-                    textRow.push(" ");
+                    textRow = this.rules.getSpecialPattern(this.board, textRow, x, y);
                 }
                 else
                 {
+                    let cellIndex = (y * this.boardWidth) + x;
+                    textRow.push(" ");
                     textRow.push(this.board[cellIndex])
                     textRow.push(" ");
                 }
@@ -55,5 +50,3 @@ export class Game
         }
     }
 }
-
-
