@@ -15,13 +15,44 @@ export class Game
             case "checkers":
                 console.log("Constructing Checkers.");
                 this.rules = new CheckersRules();
-                this.board = this.rules.getNewBoard();
+                [this.board, this.boardHeight, this.boardWidth] = this.rules.getNewBoard();
                 break;
             default:
-                console.log("Warning: invalid game.")
+                console.error("Error: invalid game.")
                 break;
         }
         console.log("Game constructed.");
+    }
+ 
+    logBoard()
+    {
+        console.log("= = = = =");
+        let textRow = [];
+        for (let y = 0; y < this.boardHeight; y++)
+        {
+            for (let x = 0; x < this.boardWidth; x++)
+            {
+                let cellIndex = (y * this.boardWidth) + x;
+                if (y % 2 == 1)
+                {
+                    textRow.push(this.board[cellIndex]);
+                    textRow.push(" ")
+                }
+                else if (x % 4 == 0)
+                {
+                    textRow.push(" ");
+                    textRow.push(this.board[cellIndex])
+                    textRow.push(" ");
+                }
+                else
+                {
+                    textRow.push(this.board[cellIndex])
+                    textRow.push(" ");
+                }
+            }
+            console.log(textRow.join(""));
+            textRow = [];
+        }
     }
 }
 

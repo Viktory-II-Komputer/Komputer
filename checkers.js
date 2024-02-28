@@ -20,9 +20,11 @@ const MAN = 'M'  // Player1 pawn.
 const KING = 'K'  // Player1 royal.
 const WOMAN = 'W' // Player2 pawn.
 const QUEEN = 'Q'  // Player2 royal.
-const CHECKERS_GRID_CELL_COUNT = 32;
-const KING_PROMOTION_MAX = 4; // Max index of the top row on a board.
-const QUEEN_PROMOTION_MIN = 27; // Min index of the bottom row a board. 
+const BOARD_WIDTH = 4;        
+const BOARD_HEIGHT = 8;
+const BOARD_CELL_COUNT = 32;
+const KING_PROMOTION_MAX = 4; // Max index, exclusive, of the top row.
+const QUEEN_PROMOTION_MIN = 27; // Min index, exclusive, of the bottom row. 
 
 export class CheckersRules 
 {
@@ -33,7 +35,7 @@ export class CheckersRules
 
     getNewBoard()
     {
-        return "WWWWWWWWWWWW++++++++MMMMMMMMMMMM"
+        return ["WWWWWWWWWWWW++++++++MMMMMMMMMMMM", BOARD_HEIGHT, BOARD_WIDTH] 
     }
 
     getNewBoardFromMove (board, originIndex, destinationIndex, opponentIndex = null)
@@ -85,7 +87,7 @@ export class CheckersRules
 
     isJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)
     {    
-       for (let i = 0; i < CHECKERS_GRID_CELL_COUNT; i++)
+       for (let i = 0; i < BOARD_CELL_COUNT; i++)
        {
           // Check if the cell contains a piece of the current player
           if (board[i] === playerPawn || board[i] === playerRoyal)
@@ -141,7 +143,7 @@ export class CheckersRules
     }
 
     pushAllJumps(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal) {
-        for (let i = 0; index < CHECKERS_GRID_CELL_COUNT; index++) {
+        for (let i = 0; index < BOARD_CELL_COUNT; index++) {
             if (board[index] === playerPawn || board[index] === playerRoyal) {
                 this.generateNextJumpBoards(board, index, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
             }
@@ -149,7 +151,7 @@ export class CheckersRules
     }
 
     pushAllAdjacentMoves(board, isPlayer1, playerPawn, playerRoyal) {
-        for (let i = 0; i < CHECKERS_GRID_CELL_COUNT; i++) {
+        for (let i = 0; i < BOARD_CELL_COUNT; i++) {
             if (board[i] === playerPawn || board[i] === playerRoyal) {
                 // Calculate forward indexes near piece 
                 let fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);

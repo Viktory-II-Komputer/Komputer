@@ -13,12 +13,12 @@ export class Agent
     {
         this.game = game;
         this.isPlayer1 = isPlayer1;
+        game.logBoard();
         console.log("Begin play on: " + game.name + ".");
     }
 
     continue()
     {
-        console.log("Continue...")
         this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
         if (!this.game.hasNextState)
         {
@@ -28,6 +28,8 @@ export class Agent
         else
         {
             this.chooseNextState();
+            this.game.logBoard();
+            console.log("Moving...")
         }
     }
 
@@ -39,7 +41,7 @@ export class Agent
                 this.game.board = this.getRandomNextBoard()
                 break;
             default:
-                console.log("Warning: invalid agent.")
+                console.error("Error: invalid agent.")
                 break;
         }
     }
