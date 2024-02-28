@@ -6,10 +6,10 @@ export class Agent
         this.algorithm = algorithm;
         this.game = null;
         this.isPlayer1 = null;
-        console.log("Agent constructed.");
+        console.log(algorithm + " Agent constructed.");
     }
 
-    begin(game, isPlayer1)
+    begin(game, isPlayer1 = true)
     {
         this.game = game;
         this.isPlayer1 = isPlayer1;
@@ -19,7 +19,7 @@ export class Agent
     continue()
     {
         console.log("Continue...")
-        this.game.hasNextState = this.game.rules.generateNextPossibleBoards(this.game.board, this.isPlayer1);
+        this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
         if (!this.game.hasNextState)
         {
             this.game.hasWinner = true;
@@ -27,22 +27,33 @@ export class Agent
         }
         else
         {
-            this.game.board = this.getRandomNextBoard(this.game)
+            this.chooseNextState();
         }
     }
 
-    getRandomNextBoard(game)
+    chooseNextState()
     {
-        console.log("Choose random move.");
-        let max = this.game.rules.nextPossibleBoards.length;
-        let randomIndex = this.getRandomIndex(max);
+        switch(this.algorithm.toLowerCase())
+        {
+            case "random":
+                this.game.board = this.getRandomNextBoard()
+                break;
+            default:
+                break;
+        }
+    }
 
+    getRandomNextBoard()
+    {
+        let max = this.game.rules.nextPossibleBoards.length;
+        let randomIndex = getRandomIndexExclusive(max);
         return this.game.rules.nextPossibleBoards[randomIndex];
     }
+}  // End class
 
-    // Returns random integer between [zero, max).
-    getRandomIndex(max)
-    {
-        return Math.floor(Math.random() * max);
-    }
+
+// Returns random integer between [zero, max).
+function getRandomIndexExclusive(max)
+{
+    return Math.floor(Math.random() * max);
 }

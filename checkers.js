@@ -3,6 +3,17 @@
 /// Usually as a string of characters,
 /// From index 0 (top) to 31 (bottom), 
 /// Where player1 begins on the bottom.
+///
+///  Board vizualization:
+///
+///      0      1       2      3
+///   4      5      6       7   
+///      8      9      10     11
+///  12     13     14      15  
+///     16     17      18     19
+///  20     21     22      23   
+///     24     25      26     27
+///  28     29     30      31   
 
 const EMPTY = '+'  // Empty cell.
 const MAN = 'M'  // Player1 pawn.
@@ -51,7 +62,7 @@ export class CheckersRules
         return [newBoard.join(""), wasPromoted]
     }
 
-    generateNextPossibleBoards(board, isPlayer1)
+    hasGeneratedNextPossibleStates(board, isPlayer1)
      {
         // Clear boards from the previous turn.
         this.nextPossibleBoards = [];

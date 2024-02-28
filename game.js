@@ -13,7 +13,7 @@ export class Game
                 console.log("Constructing Tic Tac Toe.");
                 break;
             case "checkers":
-                console.log("Constructing checkers.");
+                console.log("Constructing Checkers.");
                 this.rules = new CheckersRules();
                 this.board = this.rules.getNewBoard();
                 break;
