@@ -72,7 +72,7 @@ export class CheckersRules
         let opponentPawn = isPlayer1 ? WOMAN : MAN;
         let opponentRoyal = isPlayer1 ? QUEEN : KING;
      
-        if (this.IsJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal))
+        if (this.isJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal))
         {
            this.pushAllJumps(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
         }
@@ -83,7 +83,7 @@ export class CheckersRules
         return (this.nextPossibleBoards.length > 0);
     }
 
-    IsJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)
+    isJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)
     {    
        for (let i = 0; i < CHECKERS_GRID_CELL_COUNT; i++)
        {
@@ -91,10 +91,10 @@ export class CheckersRules
           if (board[i] === playerPawn || board[i] === playerRoyal)
           {
              // Calculate forward indexes near piece
-             let fwdLeftIndex = isPlayer1 ? this.NorthWestGet(i) : this.SouthEastGet(i);
-             let fwdRightIndex = isPlayer1 ? this.NorthEastGet(i) : this.SouthWestGet(i);
-             let fwdLeftJumpIndex = isPlayer1 ? this.NorthWestJumpGet(i) : this.SouthEastJumpGet(i);
-             let fwdRightJumpIndex = isPlayer1 ? this.NorthEastJumpGet(i) : this.SouthWestJumpGet(i);
+             let fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
+             let fwdRightIndex = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
+             let fwdLeftJumpIndex = isPlayer1 ? this.northWestJumpGet(i) : this.southEastJumpGet(i);
+             let fwdRightJumpIndex = isPlayer1 ? this.northEastJumpGet(i) : this.southWestJumpGet(i);
              // Check for forward left jumps
              if (fwdLeftIndex !== null && fwdLeftJumpIndex !== null &&
                 board[fwdLeftJumpIndex] === EMPTY &&
@@ -114,10 +114,10 @@ export class CheckersRules
              if (board[i] === playerRoyal)
              {
                 // Calculate backward cells near the piece
-                let backLeftIndex = isPlayer1 ? this.SouthWestGet(i) : this.NorthEastGet(i);
-                let backRightIndex = isPlayer1 ? this.SouthEastGet(i) : this.NorthWestGet(i);
-                let backLeftJumpIndex = isPlayer1 ? this.SouthWestJumpGet(i) : this.NorthEastJumpGet(i);
-                let backRightJumpIndex = isPlayer1 ? this.SouthEastJumpGet(i) : this.NorthWestJumpGet(i);
+                let backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
+                let backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
+                let backLeftJumpIndex = isPlayer1 ? this.southWestJumpGet(i) : this.northEastJumpGet(i);
+                let backRightJumpIndex = isPlayer1 ? this.southEastJumpGet(i) : this.northWestJumpGet(i);
                 // Check for back left jumps
                 if (backLeftIndex !== null && backLeftJumpIndex !== null &&
                    board[backLeftJumpIndex] === EMPTY &&
@@ -143,7 +143,7 @@ export class CheckersRules
     pushAllJumps(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal) {
         for (let i = 0; index < CHECKERS_GRID_CELL_COUNT; index++) {
             if (board[index] === playerPawn || board[index] === playerRoyal) {
-                this.GenerateNextJumpBoards(board, index, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
+                this.generateNextJumpBoards(board, index, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
             }
         }
     }
@@ -152,8 +152,8 @@ export class CheckersRules
         for (let i = 0; i < CHECKERS_GRID_CELL_COUNT; i++) {
             if (board[i] === playerPawn || board[i] === playerRoyal) {
                 // Calculate forward indexes near piece 
-                let fwdLeftIndex = isPlayer1 ? this.NorthWestGet(i) : this.SouthEastGet(i);
-                let fwdRightIndex = isPlayer1 ? this.NorthEastGet(i) : this.SouthWestGet(i);
+                let fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
+                let fwdRightIndex = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
 
                 // Check if piece can move to adjacent cell
                 if (fwdLeftIndex !== null && board[fwdLeftIndex] === EMPTY) {
@@ -168,8 +168,8 @@ export class CheckersRules
                 }
                 // Check for king moves
                 if (board[i] === playerRoyal) {
-                    let backLeftIndex = isPlayer1 ? this.SouthWestGet(i) : this.NorthEastGet(i);
-                    let backRightIndex = isPlayer1 ? this.SouthEastGet(i) : this.NorthWestGet(i);
+                    let backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
+                    let backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
                     if (backLeftIndex !== null && board[backLeftIndex] === EMPTY) {
                         let [newBoard, _] = this.getNewBoardFromMove(board, board[i], backLeftIndex);
                         this.nextPossibleBoards.push(newBoard);
@@ -183,13 +183,13 @@ export class CheckersRules
         }
     }
 
-    GenerateNextJumpBoards(board, piece, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)
+    generateNextJumpBoards(board, piece, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)
     {
         // Calculate forward indexes near piece
-        let fwdLeftIndex = isPlayer1 ? this.NorthWestGet(piece) : this.SouthEastGet(piece);
-        let fwdRightIndex = isPlayer1 ? this.NorthEastGet(piece) : this.SouthWestGet(piece);
-        let fwdLeftJumpIndex = isPlayer1 ? this.NorthWestJumpGet(piece) : this.SouthEastJumpGet(piece);
-        let fwdRightJumpIndex = isPlayer1 ? this.NorthEastJumpGet(piece) : this.SouthWestJumpGet(piece);
+        let fwdLeftIndex = isPlayer1 ? this.northWestGet(piece) : this.southEastGet(piece);
+        let fwdRightIndex = isPlayer1 ? this.northEastGet(piece) : this.southWestGet(piece);
+        let fwdLeftJumpIndex = isPlayer1 ? this.northWestJumpGet(piece) : this.southEastJumpGet(piece);
+        let fwdRightJumpIndex = isPlayer1 ? this.northEastJumpGet(piece) : this.southWestJumpGet(piece);
         // Check for a forward left jump
         if (fwdLeftIndex !== null && fwdLeftJumpIndex !== null &&
             board[fwdLeftJumpIndex] === EMPTY &&
@@ -199,9 +199,9 @@ export class CheckersRules
             // Make move on a new board
             let [newBoard, wasPromoted] = this.getNewBoardFromMove(board, piece, fwdLeftJumpIndex, fwdLeftIndex);
             // Continue jumping if possible, or if terminal, add the new board
-            if (!wasPromoted && this.IsJumpPossibleForPiece(newBoard, isPlayer1, fwdLeftJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
+            if (!wasPromoted && this.isJumpPossibleForPiece(newBoard, isPlayer1, fwdLeftJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
             {
-                this.GenerateNextJumpBoards(newBoard, fwdLeftJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
+                this.generateNextJumpBoards(newBoard, fwdLeftJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
             }
             else
             {
@@ -217,9 +217,9 @@ export class CheckersRules
             // Make move on a new board
             let [newBoard, wasPromoted] = this.getNewBoardFromMove(board, piece, fwdRightJumpIndex, fwdRightIndex);
             // Continue jumping if possible, or if terminal, add the new board
-            if (!wasPromoted && this.IsJumpPossibleForPiece(newBoard, isPlayer1, fwdRightJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
+            if (!wasPromoted && this.isJumpPossibleForPiece(newBoard, isPlayer1, fwdRightJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
             {
-                this.GenerateNextJumpBoards(newBoard, fwdRightJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
+                this.generateNextJumpBoards(newBoard, fwdRightJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
             }
             else
             {
@@ -230,10 +230,10 @@ export class CheckersRules
         if (board[piece] === playerRoyal)
         {
             // Calculate backward cells near the piece
-            let backLeftIndex = isPlayer1 ? this.SouthWestGet(piece) : this.NorthEastGet(piece);
-            let backRightIndex = isPlayer1 ? this.SouthEastGet(piece) : this.NorthWestGet(piece);
-            let backLeftJumpIndex = isPlayer1 ? this.SouthWestJumpGet(piece) : this.NorthEastJumpGet(piece);
-            let backRightJumpIndex = isPlayer1 ? this.SouthEastJumpGet(piece) : this.NorthWestJumpGet(piece);
+            let backLeftIndex = isPlayer1 ? this.southWestGet(piece) : this.northEastGet(piece);
+            let backRightIndex = isPlayer1 ? this.southEastGet(piece) : this.northWestGet(piece);
+            let backLeftJumpIndex = isPlayer1 ? this.southWestJumpGet(piece) : this.northEastJumpGet(piece);
+            let backRightJumpIndex = isPlayer1 ? this.southEastJumpGet(piece) : this.northWestJumpGet(piece);
             // Check for a back left jump
             if (backLeftIndex !== null && backLeftJumpIndex !== null &&
                 board[backLeftJumpIndex] === EMPTY &&
@@ -243,9 +243,9 @@ export class CheckersRules
                 // Make move on a new board
                 let [newBoard, wasPromoted] = this.getNewBoardFromMove(board, piece, backLeftJumpIndex, backLeftIndex);
                 // Continue jumping if possible, or if terminal, add the new board
-                if (!wasPromoted && this.IsJumpPossibleForPiece(newBoard, isPlayer1, backLeftJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
+                if (!wasPromoted && this.isJumpPossibleForPiece(newBoard, isPlayer1, backLeftJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
                 {
-                    this.GenerateNextJumpBoards(newBoard, backLeftJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
+                    this.generateNextJumpBoards(newBoard, backLeftJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
                 }
                 else
                 {
@@ -261,9 +261,9 @@ export class CheckersRules
                 // Make move on a new board
                 let [newBoard, wasPromoted] = this.getNewBoardFromMove(board, piece, backRightJumpIndex, backRightIndex);
                 // Continue jumping if possible, or if terminal, add the new board
-                if (!wasPromoted && this.IsJumpPossibleForPiece(newBoard, isPlayer1, backRightJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
+                if (!wasPromoted && this.isJumpPossibleForPiece(newBoard, isPlayer1, backRightJumpIndex, playerRoyal, opponentPawn, opponentRoyal))
                 {
-                    this.GenerateNextJumpBoards(newBoard, backRightJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
+                    this.generateNextJumpBoards(newBoard, backRightJumpIndex, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
                 }
                 else
                 {
@@ -273,13 +273,13 @@ export class CheckersRules
         }
     }
 
-    IsJumpPossibleForPiece(board, isPlayer1, pieceIndex, playerRoyal, opponentPawn, opponentRoyal)
+    isJumpPossibleForPiece(board, isPlayer1, pieceIndex, playerRoyal, opponentPawn, opponentRoyal)
     {   
         // Calculate forward indexes near piece
-        let fwdLeftIndex = isPlayer1 ? this.NorthWestGet(pieceIndex) : this.SouthEastGet(pieceIndex);
-        let fwdRightIndex = isPlayer1 ? this.NorthEastGet(pieceIndex) : this.SouthWestGet(pieceIndex);
-        let fwdLeftJumpIndex = isPlayer1 ? this.NorthWestJumpGet(pieceIndex) : this.SouthEastJumpGet(pieceIndex);
-        let fwdRightJumpIndex = isPlayer1 ? this.NorthEastJumpGet(pieceIndex) : this.SouthWestJumpGet(pieceIndex);
+        let fwdLeftIndex = isPlayer1 ? this.northWestGet(pieceIndex) : this.southEastGet(pieceIndex);
+        let fwdRightIndex = isPlayer1 ? this.northEastGet(pieceIndex) : this.southWestGet(pieceIndex);
+        let fwdLeftJumpIndex = isPlayer1 ? this.northWestJumpGet(pieceIndex) : this.southEastJumpGet(pieceIndex);
+        let fwdRightJumpIndex = isPlayer1 ? this.northEastJumpGet(pieceIndex) : this.southWestJumpGet(pieceIndex);
         // Check for forward left jumps
         if (fwdLeftIndex !== null && fwdLeftJumpIndex !== null &&
             board[fwdLeftJumpIndex] === EMPTY &&
@@ -299,10 +299,10 @@ export class CheckersRules
         if (board[pieceIndex] === playerRoyal)
         {
             // Calculate backward cells near the piece
-            let backLeftIndex = isPlayer1 ? this.SouthWestGet(pieceIndex) : this.NorthEastGet(pieceIndex);
-            let backRightIndex = isPlayer1 ? this.SouthEastGet(pieceIndex) : this.NorthWestGet(pieceIndex);
-            let backLeftJumpIndex = isPlayer1 ? this.SouthWestJumpGet(pieceIndex) : this.NorthEastJumpGet(pieceIndex);
-            let backRightJumpIndex = isPlayer1 ? this.SouthEastJumpGet(pieceIndex) : this.NorthWestJumpGet(pieceIndex);
+            let backLeftIndex = isPlayer1 ? this.southWestGet(pieceIndex) : this.northEastGet(pieceIndex);
+            let backRightIndex = isPlayer1 ? this.southEastGet(pieceIndex) : this.northWestGet(pieceIndex);
+            let backLeftJumpIndex = isPlayer1 ? this.southWestJumpGet(pieceIndex) : this.northEastJumpGet(pieceIndex);
+            let backRightJumpIndex = isPlayer1 ? this.southEastJumpGet(pieceIndex) : this.northWestJumpGet(pieceIndex);
             // Check for back left jumps
             if (backLeftIndex !== null && backLeftJumpIndex !== null &&
                 board[backLeftJumpIndex] === EMPTY &&
@@ -329,7 +329,7 @@ export class CheckersRules
     /// Returns null if off the board.
     /// ---
 
-    NorthWestGet(index) {
+    northWestGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -358,7 +358,7 @@ export class CheckersRules
         }
     }
         
-    NorthEastGet(index) {
+    northEastGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -386,7 +386,7 @@ export class CheckersRules
         }
     }
         
-    SouthWestGet(index) {
+    southWestGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -415,7 +415,7 @@ export class CheckersRules
         }
     }
         
-    SouthEastGet(index) {
+    southEastGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -443,7 +443,7 @@ export class CheckersRules
         }
     }
         
-    NorthWestJumpGet(index) {
+    northWestJumpGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -460,7 +460,7 @@ export class CheckersRules
             return index - 9;
     }
         
-    NorthEastJumpGet(index) {
+    northEastJumpGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -477,7 +477,7 @@ export class CheckersRules
             return index - 7;
     }
         
-    SouthWestJumpGet(index) {
+    southWestJumpGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +
@@ -494,7 +494,7 @@ export class CheckersRules
             return index + 7;
     }
         
-    SouthEastJumpGet(index) {
+    southEastJumpGet(index) {
         // Index visual of the checker board to confirm below.
         //   +  0   +  1   +   2   +  3
         //   4  +   5  +   6   +   7  +

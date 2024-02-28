@@ -39,6 +39,7 @@ export class Agent
                 this.game.board = this.getRandomNextBoard()
                 break;
             default:
+                console.log("Warning: invalid agent.")
                 break;
         }
     }
