@@ -144,7 +144,7 @@ export class CheckersRules
     }
 
     pushAllJumps(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal) {
-        for (let i = 0; index < BOARD_CELL_COUNT; index++) {
+        for (let index = 0; index < BOARD_CELL_COUNT; index++) {
             if (board[index] === playerPawn || board[index] === playerRoyal) {
                 this.generateNextJumpBoards(board, index, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal);
             }
@@ -161,12 +161,12 @@ export class CheckersRules
                 // Check if piece can move to adjacent cell
                 if (fwdLeftIndex !== null && board[fwdLeftIndex] === EMPTY) {
                     // Make the move on a new board.
-                    let [newBoard, _] = this.getNewBoardFromMove(board, board[i], fwdLeftIndex);
+                    let [newBoard, _] = this.getNewBoardFromMove(board, i, fwdLeftIndex);
                     // Add new board to next possible boards
                     this.nextPossibleBoards.push(newBoard);
                 }
                 if (fwdRightIndex !== null && board[fwdRightIndex] === EMPTY) {
-                    let [newBoard, _] = this.getNewBoardFromMove(board, board[i], fwdRightIndex);
+                    let [newBoard, _] = this.getNewBoardFromMove(board, i, fwdRightIndex);
                     this.nextPossibleBoards.push(newBoard);
                 }
                 // Check for king moves
@@ -174,11 +174,11 @@ export class CheckersRules
                     let backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
                     let backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
                     if (backLeftIndex !== null && board[backLeftIndex] === EMPTY) {
-                        let [newBoard, _] = this.getNewBoardFromMove(board, board[i], backLeftIndex);
+                        let [newBoard, _] = this.getNewBoardFromMove(board, i, backLeftIndex);
                         this.nextPossibleBoards.push(newBoard);
                     }
                     if (backRightIndex !== null && board[backRightIndex] === EMPTY) {
-                        let [newBoard, _] = this.getNewBoardFromMove(board, board[i], backRightIndex);
+                        let [newBoard, _] = this.getNewBoardFromMove(board, i, backRightIndex);
                         this.nextPossibleBoards.push(newBoard);
                     }
                 }
