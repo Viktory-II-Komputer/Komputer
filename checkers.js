@@ -84,8 +84,7 @@ export class CheckersRules
         {
            this.pushAllAdjacentMoves(board, isPlayer1, playerPawn, playerRoyal);
         }
-        let hasNextPossibleBoards = (this.nextPossibleBoards.length > 0);
-        if (hasNextPossibleBoards)
+        if (this.nextPossibleBoards.length > 0)
         {
             return true;
         }
