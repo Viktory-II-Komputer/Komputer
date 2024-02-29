@@ -11,12 +11,12 @@ let agent = new Agent(AGENT_TYPE);
 agent.begin(game);
 
 // Update loop
-let [turnCount, turnMax] = [0, 200];
-while(game.hasWinner === false && turnCount < turnMax) 
+let [turn, turnMax] = [0, 200];
+while(game.hasWinner === false && turn < turnMax) 
 {
-    agent.continue();
+    agent.continue(++turn);
     agent.isPlayer1 = !agent.isPlayer1;
 }
 
-console.log("");
+
 console.log("End script.");

@@ -514,7 +514,7 @@ export class CheckersRules
             return index + 9;
     }
 
-    ///  Interface to console log boards in a checkers pattern.
+    ///  Helper to console log boards in a checkers pattern.
     getSpecialPattern(board, textRow, x, y)
     {
         let cellIndex = (y * BOARD_WIDTH) + x;

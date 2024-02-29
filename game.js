@@ -25,6 +25,7 @@ export class Game
         console.log("Game constructed.");
     }
  
+    /// Console logs board from top (index 0) to bottom.
     logBoard()
     {
         console.log("= = = = =");

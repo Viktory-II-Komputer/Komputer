@@ -17,7 +17,7 @@ export class Agent
         console.log("Begin play on: " + game.name + ".");
     }
 
-    continue()
+    continue(turn)
     {
         this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
         if (!this.game.hasNextState)
@@ -29,7 +29,7 @@ export class Agent
         {
             this.chooseNextState();
             this.game.logBoard();
-            console.log("Moving...")
+            console.log("Turn: " + turn);
         }
     }
 
