@@ -6,8 +6,9 @@ export class Game
     constructor(gameName)
     {
         this.name = gameName;
-        this.hasWinner = false;
+        //this.winnerName = null;
         this.hasNextState = true;
+        this.isDone = false;
         switch (gameName.toLowerCase())
         {
             case "tictactoe":

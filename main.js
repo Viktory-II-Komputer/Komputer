@@ -1,7 +1,7 @@
 import { Agent } from './agent.js';
 import { Game } from './game.js';
 
-const GAME_TO_PLAY = "TicTacToe" // "Checkers" // 
+const GAME_TO_PLAY = "Checkers" // "Checkers" // 
 const AGENT_TYPE = "Random"
 
 // Initialization 
@@ -12,7 +12,7 @@ agent.begin(game);
 
 // Update loop
 let [turn, turnMax] = [0, 200];
-while(game.hasWinner === false && turn < turnMax) 
+while(game.isDone === false && turn < turnMax) 
 {
     agent.continue(++turn);
     agent.isPlayer1 = !agent.isPlayer1;

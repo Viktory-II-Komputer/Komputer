@@ -32,6 +32,7 @@ export class CheckersRules
     constructor()
     {
         this.nextPossibleBoards = []
+        this.winner = null;
     }
 
     getNewBoard()
@@ -83,7 +84,16 @@ export class CheckersRules
         {
            this.pushAllAdjacentMoves(board, isPlayer1, playerPawn, playerRoyal);
         }
-        return (this.nextPossibleBoards.length > 0);
+        let hasNextPossibleBoards = (this.nextPossibleBoards.length > 0);
+        if (hasNextPossibleBoards)
+        {
+            return true;
+        }
+        else
+        {
+            this.winner = isPlayer1? "2" : "1";
+            return false;
+        }
     }
 
     isJumpPossibleOnBoard(board, isPlayer1, playerPawn, playerRoyal, opponentPawn, opponentRoyal)

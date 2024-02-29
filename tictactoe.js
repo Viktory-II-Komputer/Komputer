@@ -1,7 +1,9 @@
 
-const EMPTY = '-' // Blank cell.
-const X = 'X'  // Player1 mark.
-const O = 'O' // Player2 mark.
+/// Tic Tac Toe
+
+const player1Mark = 'X'
+const player2Mark = 'O' 
+const EMPTY = '-'
 const BOARD_WIDTH = 3;        
 const BOARD_HEIGHT = 3;
 const BOARD_CELL_COUNT = 9;
@@ -12,6 +14,7 @@ export class TicTacToeRules
     constructor()
     {
         this.nextPossibleBoards = []
+        this.winner = null;
     }
 
     getNewBoard()
@@ -21,15 +24,23 @@ export class TicTacToeRules
 
     hasGeneratedNextPossibleStates(board, isPlayer1)
     {
-        // Clear boards from previous turn.
-        this.nextPossibleBoards = [];
-
-        if (this.isMovePossible(board))
+        if (this.wasWon(board, isPlayer1))
         {
-            this.pushAllPossibleBoards(board, isPlayer1);
-            return true;
+            // Whoever played last won.
+            // So the winner is the opposite player.
+            this.winner = isPlayer1? player2Mark: player1Mark;
+            return false;
         }
-        return false;
+        else
+        {
+            if (this.isMovePossible(board))
+            {
+                this.nextPossibleBoards = [];
+                this.pushAllPossibleBoards(board, isPlayer1);
+                return true;
+            } 
+            return false; 
+        }
     }
 
     isMovePossible(board)
@@ -44,7 +55,7 @@ export class TicTacToeRules
 
     pushAllPossibleBoards(board, isPlayer1)
     {
-        let playerMark = isPlayer1? X : O;
+        let playerMark = isPlayer1? player1Mark : player2Mark;
         for (let index = 0; index < BOARD_CELL_COUNT; index++)
         {
             if (board[index] === EMPTY)
@@ -55,5 +66,20 @@ export class TicTacToeRules
                 this.nextPossibleBoards.push(newBoard);
             }            
         }
+    }
+
+    // Check if whoever played last won.
+    wasWon(board, isPlayer1)
+    {
+        let opponentMark = isPlayer1? player2Mark : player1Mark;
+        return (
+            ((board[0] ==   opponentMark) && (board[1] ==   opponentMark) && (board[2] ==   opponentMark)) || // Top row
+            ((board[3] ==   opponentMark) && (board[4] ==   opponentMark) && (board[5] ==   opponentMark)) || // Center row
+            ((board[6] ==   opponentMark) && (board[7] ==   opponentMark) && (board[8] ==   opponentMark)) || // Bottom row
+            ((board[0] ==   opponentMark) && (board[3] ==   opponentMark) && (board[6] ==   opponentMark)) || // Left column
+            ((board[1] ==   opponentMark) && (board[4] ==   opponentMark) && (board[7] ==   opponentMark)) || // Center column
+            ((board[2] ==   opponentMark) && (board[5] ==   opponentMark) && (board[8] ==   opponentMark)) || // Right column
+            ((board[0] ==   opponentMark) && (board[4] ==   opponentMark) && (board[8] ==   opponentMark)) || // Diagonal down
+            ((board[2] ==   opponentMark) && (board[4] ==   opponentMark) && (board[6] ==   opponentMark)));  // Diagonol up
     }
 }
