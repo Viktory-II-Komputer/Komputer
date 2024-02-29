@@ -1,4 +1,5 @@
 import { CheckersRules } from "./checkers.js";
+import { TicTacToeRules } from "./tictactoe.js";
 
 export class Game 
 {
@@ -11,6 +12,9 @@ export class Game
         {
             case "tictactoe":
                 console.log("Constructing Tic Tac Toe.");
+                this.rules = new TicTacToeRules();
+                [this.board, this.boardHeight, this.boardWidth,
+                 this.hasSpecialPattern] = this.rules.getNewBoard();
                 break;
             case "checkers":
                 console.log("Constructing Checkers.");
