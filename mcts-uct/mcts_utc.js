@@ -3,7 +3,7 @@ import { Node } from "./node.js";
 import { selectNode } from "./select.js";
 import { expand } from "./expand.js";
 import { simulate } from "./simulate.js";
-import { backpropagateResults } from "./backpropagate.js";
+import { backpropagate } from "./backpropagate.js";
 
 const SEARCH_TIME = 5000;  // In milliseconds, so 5000 = 5 seconds.
 
@@ -24,22 +24,22 @@ export class MCTS_UCT_Logic
         // For each immediate child of root, simulate once.
         for (let child of this.rootNode.children.keys())
         {
-            simulate(child);
-            backpropagateResults(child);
+            const result = simulate(child);
+            backpropagate(child, result);
             this.iterationCount++;
         }
     }
 
     getNextState()
     {
-        let nodeToVisit = selectNode(this.rootNode);
+        let nodeToVisit = selectNode(this.rootNode, this.iterationCount);
         expand(nodeToVisit);
         for (let child of nodeToVisit.children.keys())
         {
             if (child.visitCount === 0)
             {
-                simulate(child);
-                backpropagateResults(child)
+                const result = simulate(child);
+                backpropagate(child, result);
                 this.iterationCount++;
                 break;
             }

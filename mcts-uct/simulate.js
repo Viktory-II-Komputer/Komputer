@@ -1,8 +1,8 @@
 
 export function simulate(child)
 {
-    child.visitCount++;
-    child.value = null // Fix this.
-
-    console.log("Hello Simulate");
+    let result = getRandomGameResult(child.board, child.isPlayer1);
+    child.sumValue += result;
+    child.visitCount++;    
+    return result;
 }

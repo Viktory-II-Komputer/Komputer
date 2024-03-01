@@ -6,7 +6,7 @@ export class Node
         this.board = board;
         this.isPLayer1 = isPLayer1;
         this.visitCount = 0;
-        this.value = 0;
+        this.sumValue = 0;
         this.parent = parent;
         this.children = new Map();
     }
