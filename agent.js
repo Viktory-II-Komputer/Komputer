@@ -1,12 +1,26 @@
+import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
 
 export class Agent
 {
-    constructor(algorithm)
+    constructor(name)
     {
-        this.algorithm = algorithm;
+        this.logName = name;
+        this.name = name.toLowerCase();
+        switch (this.name)
+        {
+            case "random": 
+                this.logic = null;
+                break;
+            case "mcts-uct":
+                this.logic = new MCTS_UCT_Logic();
+                break;
+            default:
+                console.error("Error: invalid agent.");
+                break;
+        }
         this.game = null;
         this.isPlayer1 = null;
-        console.log(algorithm + " Agent constructed.");
+        console.log(this.logName + " Agent constructed.");
     }
 
     begin(game, isPlayer1 = true)
@@ -40,13 +54,16 @@ export class Agent
 
     chooseNextState()
     {
-        switch(this.algorithm.toLowerCase())
+        switch(this.name)
         {
             case "random":
-                this.game.board = this.getRandomNextBoard()
+                this.game.board = this.getRandomNextBoard();
+                break;
+            case "mcts-uct":
+                this.game.board = this.logic.getNextState(this.game);
                 break;
             default:
-                console.error("Error: invalid agent.")
+                console.error("Error: invalid agent.");
                 break;
         }
     }
