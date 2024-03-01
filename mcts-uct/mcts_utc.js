@@ -24,8 +24,7 @@ export class MCTS_UCT_Logic
         // For each immediate child of root, simulate once.
         for (let child of this.rootNode.children.keys())
         {
-            child.visitCount++;
-            child.value = simulate(child);
+            simulate(child);
             backpropagateResults(child);
         }
     }
@@ -34,11 +33,10 @@ export class MCTS_UCT_Logic
     {
         let nodeToVisit = selectNode(this.rootNode);
         expand(nodeToVisit);
-        for (let child of this.nodeToVisit.children.keys())
+        for (let child of nodeToVisit.children.keys())
         {
             if (child.visitCount === 0)
             {
-                child.visitCount++;
                 simulate(child);
                 backpropagateResults(child)
                 break;
