@@ -3,6 +3,6 @@ export function expand(parent)
 {
     console.log("Hello Expand");
 
-    // Create all possible children nodes for parent.
+    // Create all possible child nodes for selected parent.
     // Simulate each once.
 }

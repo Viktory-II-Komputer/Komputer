@@ -33,10 +33,17 @@ export class MCTS_UCT_Logic
     getNextState()
     {
         let nodeToVisit = selectNode(this.rootNode);
-        nodeToVisit.children = expand(nodeToVisit);
-        nodeToVisit.children[0].visitCount++;
-        nodeToVisit.children[0].value = simulate(children[0]);
-        backpropagateResults(nodeToVisit.children[0])
+        expand(nodeToVisit);
+        for (let child of this.nodeToVisit.children.keys())
+        {
+            if (child.visitCount === 0)
+            {
+                child.visitCount++;
+                simulate(child);
+                backpropagateResults(child)
+                break;
+            }
+        }
         if (this.isTimeToDecide(endSearchTime))
         {
             return this.getBest(this.rootNode);
