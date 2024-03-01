@@ -80,6 +80,6 @@ export class TicTacToeRules
             ((board[1] ==   opponentMark) && (board[4] ==   opponentMark) && (board[7] ==   opponentMark)) || // Center column
             ((board[2] ==   opponentMark) && (board[5] ==   opponentMark) && (board[8] ==   opponentMark)) || // Right column
             ((board[0] ==   opponentMark) && (board[4] ==   opponentMark) && (board[8] ==   opponentMark)) || // Diagonal down
-            ((board[2] ==   opponentMark) && (board[4] ==   opponentMark) && (board[6] ==   opponentMark)));  // Diagonol up
+            ((board[2] ==   opponentMark) && (board[4] ==   opponentMark) && (board[6] ==   opponentMark)));  // Diagonal up
     }
 }
