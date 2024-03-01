@@ -60,7 +60,8 @@ export class Agent
                 this.game.board = this.getRandomNextBoard();
                 break;
             case "mcts-uct":
-                this.game.board = this.logic.getNextState(this.game);
+                this.logic.init(this.game.board, this.isPlayer1);
+                this.game.board = this.logic.getNextState();
                 break;
             default:
                 console.error("Error: invalid agent.");
