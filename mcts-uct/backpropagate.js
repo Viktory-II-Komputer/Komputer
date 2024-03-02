@@ -9,3 +9,18 @@ export function backpropagate(child, result)
 
     }
 }
+
+/* 
+Because this is an advesarial game, I believe either...
+
+1. the result will need to be flipped every time it goes up
+
+Or maybe...
+
+2. the Selection stage will need to alternate searching for best / worst.
+
+Option 1 sounds better to me right now. Still thinking about it.  
+
+This is a twist to MCTS that catches many people the first time.  
+
+*/
