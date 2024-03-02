@@ -5,7 +5,7 @@ import { expand } from "./expand.js";
 import { simulate } from "./simulate.js";
 import { backpropagate } from "./backpropagate.js";
 
-const SEARCH_TIME = 5000;  // In milliseconds, so 5000 = 5 seconds.
+const SEARCH_TIME = 5000;  // In milliseconds, so 5000 == 5 seconds.
 
 export class MCTS_UCT_Logic
 {
@@ -20,6 +20,7 @@ export class MCTS_UCT_Logic
     {
         this.endSearchTime = Date.now() + SEARCH_TIME;
         this.rootNode = new Node(board, isPlayer1);
+        expand(this.rootNode);
 
         // For each immediate child of root, simulate once.
         for (let child of this.rootNode.children.keys())
