@@ -49,7 +49,7 @@ export class MCTS_UCT_Logic
         }
         if (this.isTimeToDecide())
         {
-            return this.getBest(this.rootNode);
+            return this.getBest();
         }
         else
         {
@@ -64,6 +64,17 @@ export class MCTS_UCT_Logic
 
     getBest()
     {
+        let bestChild = null;
+        let maxVisitCount = 0;
 
+        for (let child of this.rootNode.children.keys())
+        {
+            if (child.visitCount > maxVisitCount)
+            {
+                maxVisitCount = child.visitCount;
+                bestChild = child;
+            }
+        }
+        return bestChild;
     }
 }
