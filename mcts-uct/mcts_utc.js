@@ -47,7 +47,7 @@ export class MCTS_UCT_Logic
                 break;
             }
         }
-        if (this.isTimeToDecide(endSearchTime))
+        if (this.isTimeToDecide())
         {
             return this.getBest(this.rootNode);
         }
