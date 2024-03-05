@@ -1,13 +1,20 @@
 
 export function simulate(child)
 {
-    let result = getRandomGameResult(child.board, child.isPlayer1);
-    child.sumValue += result;
-    child.visitCount++;    
+    child.visitCount++; 
+    let result = 0;
+    let isWinner = getPlayer1IsWinner(child.board, child.isPlayer1);
+    if (isWinner !== null)
+    {
+        result = child.isPlayer1? 1 : -1;
+        child.sumValue += result; 
+    }
     return result;
 }
 
-function getRandomGameResult(board, isPlayer1)
+// Return true for a player1 win or false for a loss, null if none. 
+function getPlayer1IsWinner(board, isPlayer1)
 {
 
+    return
 }

@@ -14,7 +14,6 @@ export class MCTS_UCT_Logic
         this.game = null;
         this.rootNode = null;
         this.endSearchTime = null;
-        this.iterationCount = 0;
     }
 
     init(game, isPlayer1)
@@ -29,7 +28,6 @@ export class MCTS_UCT_Logic
         {
             const result = simulate(child);
             backpropagate(child, result);
-            this.iterationCount++;
         }
     }
 
@@ -43,7 +41,6 @@ export class MCTS_UCT_Logic
             {
                 const result = simulate(child);
                 backpropagate(child, result);
-                this.iterationCount++;
                 break;
             }
         }

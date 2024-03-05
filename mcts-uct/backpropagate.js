@@ -1,26 +1,24 @@
 
-export function backpropagate(child, result)
+export function backpropagate(node, result)
 {
-    // Need to update all parent ancestors of child. 
-    // Should add to parent sumValue and increment visitCount.
+    // Update all parent ancestors of node. 
     // End after root is updated, that is, when parent === null.
-    while(node.parent !== null)
+    while(node !== null)
     {
-
+        node.parent.visitCount++;
+        node.parent.sumValue += result;
+        node = node.parent;
     }
 }
 
 /* 
-Because this is an advesarial game, I believe either...
+Because this is an advesarial game...
 
-1. the result will need to be flipped every time it goes up
+1. The passed-in result was based on the player: it's 1 for player1 win, -1 for loss, 0 for no winner.
 
-Or maybe...
+2. The Selection stage will need to alternate searching for best / worst.
 
-2. the Selection stage will need to alternate searching for best / worst.
-
-Option 1 sounds better to me right now. Still thinking about it.  
-
-This is a twist to MCTS that catches many people the first time.  
+This is a twist to MCTS that catches many the first time.  
+Will test to confirm how this works.
 
 */
