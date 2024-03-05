@@ -33,7 +33,7 @@ export class MCTS_UCT_Logic
 
     getNextState()
     {
-        let nodeToVisit = selectNode(this.rootNode, this.iterationCount);
+        let nodeToVisit = selectNode(this.rootNode);
         expand(nodeToVisit);
         for (let child of nodeToVisit.children.keys())
         {
