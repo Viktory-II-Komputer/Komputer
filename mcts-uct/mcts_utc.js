@@ -11,16 +11,18 @@ export class MCTS_UCT_Logic
 {
     constructor()
     {
+        this.game = null;
         this.rootNode = null;
         this.endSearchTime = null;
         this.iterationCount = 0;
     }
 
-    init(board, isPlayer1)
+    init(board, isPlayer1, game)
     {
+        this.game = game;
         this.endSearchTime = Date.now() + SEARCH_TIME;
         this.rootNode = new Node(board, isPlayer1);
-        expand(this.rootNode);
+        expand(this.rootNode, this.game);
 
         // For each immediate child of root, simulate once.
         for (let child of this.rootNode.children.keys())
@@ -34,7 +36,7 @@ export class MCTS_UCT_Logic
     getNextState()
     {
         let nodeToVisit = selectNode(this.rootNode);
-        expand(nodeToVisit);
+        expand(nodeToVisit, this.game);
         for (let child of nodeToVisit.children.keys())
         {
             if (child.visitCount === 0)
