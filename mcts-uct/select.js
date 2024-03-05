@@ -3,11 +3,9 @@ const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, wh
 
 export function selectNode(parent)
 {
-    // For all visited decendents of the root parent node, meaning: 
-    // In all children maps, for all keys (child nodes) with visitCount > 0: 
-    // Calculate the UCB score.
-    // Set the value of each child (key) to this score.
-    // Return the node key with max UCB value.
+    // For all map children of parent, for each key child with visitCount > 0: 
+    // Calculate the UCB score and set the value of each child key to this score.
+    // Return descendant child key with max UCB value.
     let maxUCB = 0;
     let maxChild = null;
 
