@@ -1,5 +1,5 @@
 
-const UCB_C = 2;  // Explores 
+const UCB_C = 2;  // Customary magic number: controls ratio for exploit-explore, where zero is greedy.
 
 export function selectNode(parent)
 {
