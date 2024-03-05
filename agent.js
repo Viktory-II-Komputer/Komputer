@@ -28,7 +28,7 @@ export class Agent
         this.game = game;
         this.isPlayer1 = isPlayer1;
         game.logBoard();
-        console.log("Begin play on: " + game.name + ".");
+        console.log("Begin play on: " + game.logName + ".");
     }
 
     continue(turn)
@@ -60,7 +60,7 @@ export class Agent
                 this.game.board = this.getRandomNextBoard();
                 break;
             case "mcts-uct":
-                this.logic.init(this.game.board, this.isPlayer1);
+                this.logic.init(this.game, this.isPlayer1);
                 this.game.board = this.logic.getNextState();
                 break;
             default:

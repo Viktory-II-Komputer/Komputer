@@ -17,11 +17,11 @@ export class MCTS_UCT_Logic
         this.iterationCount = 0;
     }
 
-    init(board, isPlayer1, game)
+    init(game, isPlayer1)
     {
-        this.game = game;
         this.endSearchTime = Date.now() + SEARCH_TIME;
-        this.rootNode = new Node(board, isPlayer1);
+        this.rootNode = new Node(game.board, isPlayer1);
+        this.game = game;
         expand(this.rootNode, this.game);
 
         // For each immediate child of root, simulate once.

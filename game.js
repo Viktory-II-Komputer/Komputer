@@ -5,10 +5,11 @@ export class Game
 {
     constructor(gameName)
     {
-        this.name = gameName;
+        this.logName = gameName;
+        this.name = gameName.toLowerCase();
         this.hasNextState = true;
         this.isDone = false;
-        switch (gameName.toLowerCase())
+        switch (this.name)
         {
             case "tictactoe":
                 console.log("Constructing Tic Tac Toe.");
