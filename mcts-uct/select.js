@@ -1,5 +1,5 @@
 
-const UCB_C = 2;  // Customary magic number: controls ratio for exploit-explore, where zero is greedy.
+const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
 
 export function selectNode(parent)
 {
