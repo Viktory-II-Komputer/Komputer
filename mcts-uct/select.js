@@ -6,33 +6,45 @@ export function selectNode(parent)
     // For all map children of parent, for each key child with visitCount > 0: 
     // Calculate the UCB score and set the value of each child key to this score.
     // Return descendant child key with max UCB value.
-    let maxUCB = 0;
-    let maxChild = null;
+    let bestUCB = 0;
+    let bestChild = null;
 
     // If the given parent has a map of children, find the best decendent.
     while (parent.children.length > 0)
     {
-        // For each immediate child
         for (let child of parent.children.keys())
         {
-            // If visited, calculate & set UCB score. If score is best, cache.
+            // If visited, set UCB score. If score is best, cache.
             if (child.visitCount > 0)
             {
                 const UCB_score = (
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(parent.visitCount) / child.visitCount ) )
                     );
                 parent.children.set(child, UCB_score);
-                if (UCB_score > maxUCB)
+                // For player1, best is max child.
+                if (parent.isPlayer1)
                 {
-                    maxUCB = UCB_score;
-                    maxChild = child;
+                    if (UCB_score > bestUCB)
+                    {
+                        bestUCB = UCB_score;
+                        bestChild = child;
+                    }
+                }
+                // For player2, best is min child.
+                else
+                {
+                    if (UCB_score < bestUCB)
+                    {
+                        bestUCB = UCB_score;
+                        bestChild = child;
+                    }
                 }
             }
         }
         // Continue search under best child.
-        parent = maxChild;
+        parent = bestChild;
     }
-    return maxChild;
+    return bestChild;
 }
 
 /*
