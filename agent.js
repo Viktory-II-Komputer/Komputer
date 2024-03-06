@@ -1,4 +1,5 @@
 import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
+import { GetRandomNextBoard } from "./random.js";
 
 export class Agent
 {
@@ -57,7 +58,7 @@ export class Agent
         switch(this.name)
         {
             case "random":
-                this.game.board = this.getRandomNextBoard();
+                this.game.board = GetRandomNextBoard(this.game.rules);
                 break;
             case "mcts-uct":
                 this.logic.init(this.game, this.isPlayer1);
@@ -68,18 +69,5 @@ export class Agent
                 break;
         }
     }
-
-    getRandomNextBoard()
-    {
-        let max = this.game.rules.nextPossibleBoards.length;
-        let randomIndex = getRandomIndexExclusive(max);
-        return this.game.rules.nextPossibleBoards[randomIndex];
-    }
 }  // End class
 
-
-// Returns random integer between [zero, max).
-function getRandomIndexExclusive(max)
-{
-    return Math.floor(Math.random() * max);
-}

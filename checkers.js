@@ -15,6 +15,8 @@
 ///     24     25      26     27
 ///  28     29     30      31   
 
+import { Winner } from "./winner"
+
 const EMPTY = '+'  // Empty cell.
 const MAN = 'M'  // Player1 pawn.
 const KING = 'K'  // Player1 royal.
@@ -32,7 +34,7 @@ export class CheckersRules
     constructor()
     {
         this.nextPossibleBoards = []
-        this.winner = null;
+        this.winner = new Winner();
     }
 
     getNewBoard()
@@ -90,7 +92,10 @@ export class CheckersRules
         }
         else
         {
-            this.winner = isPlayer1? "2" : "1";
+            // Whoever played last won.
+            // So the winner is the opposite.
+            this.winner.isPlayer1 = !isPlayer1;
+            this.winner.logName = isPlayer1? "2" : "1";
             return false;
         }
     }

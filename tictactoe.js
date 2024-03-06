@@ -1,6 +1,8 @@
 
 /// Tic Tac Toe
 
+import { Winner } from "./winner";
+
 const player1Mark = 'X'
 const player2Mark = 'O' 
 const EMPTY = '-'
@@ -14,7 +16,7 @@ export class TicTacToeRules
     constructor()
     {
         this.nextPossibleBoards = []
-        this.winner = null;
+        this.winner = new Winner();
     }
 
     getNewBoard()
@@ -27,8 +29,9 @@ export class TicTacToeRules
         if (this.wasWon(board, isPlayer1))
         {
             // Whoever played last won.
-            // So the winner is the opposite player.
-            this.winner = isPlayer1? player2Mark: player1Mark;
+            // So the winner is the opposite.
+            this.winner.isPlayer1 = !isPlayer1;
+            this.winner.logName = isPlayer1? player2Mark: player1Mark;
             return false;
         }
         else

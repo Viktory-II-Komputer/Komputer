@@ -2,7 +2,7 @@ import { CheckersRules } from "../checkers";
 import { TicTacToeRules } from "../tictactoe";
 import { Node } from "./node";
 
-export function expand(node, game)
+export function Expand(node, game)
 {
     // If root, add nextPossibleBoards from current game to children.
     // Since each child has the opponent's turn, set to opposite player.

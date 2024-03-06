@@ -1,7 +1,7 @@
 
 const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
 
-export function selectNode(parent)
+export function SelectNode(parent)
 {
     // For all map children of parent, for each key child with visitCount > 0: 
     // Calculate the UCB score and set the value of each child key to this score.

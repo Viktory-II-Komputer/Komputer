@@ -1,10 +1,15 @@
 
-// Module not used. May move code here later from Agent.js 
+/// Functions for random behavior.
 
-export class RandomBotLogic
+export function GetRandomNextBoard(rules)
 {
-    constructor()
-    {
+    const MAX = rules.nextPossibleBoards.length;
+    const RANDOM_INDEX = getRandomIndexExclusive(MAX);
+    return rules.nextPossibleBoards[RANDOM_INDEX];
+}
 
-    }
+// Returns random integer between [zero, max).
+function getRandomIndexExclusive(max)
+{
+    return Math.floor(Math.random() * max);
 }
