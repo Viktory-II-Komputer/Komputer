@@ -5,7 +5,8 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
-const SEARCH_TIME = 3000;  // In milliseconds, so 3000 == 3 seconds.
+const SEARCH_TIME = 1000;  // In milliseconds, so 1000 == 1 seconds.
+const MAX_ITERATIONS = 1000;
 
 export class MCTS_UCT_Logic
 {
@@ -18,7 +19,7 @@ export class MCTS_UCT_Logic
 
     init(game, isPlayer1)
     {
-        this.endSearchTime = Date.now() + SEARCH_TIME;
+        this.endSearchTime = (Date.now() + SEARCH_TIME);
         this.rootNode = new Node(game.board, isPlayer1);
         this.game = game;
         Expand(this.rootNode, this.game);
@@ -44,7 +45,7 @@ export class MCTS_UCT_Logic
                 break;
             }
         }
-        if (this.isTimeToDecide())
+        if (this.isTimeToDecide() || this.rootNode.visitCount > this.MAX_ITERATIONS)
         {
             return this.getBest();
         }
