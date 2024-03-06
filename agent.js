@@ -35,10 +35,10 @@ export class Agent
     continue(turn)
     {
         this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
-        if (this.game.rules.winner)
+        if (this.game.rules.winner.isPlayer1 !== null)
         {
             this.game.isDone = true;
-            console.log("Game won by Player " + this.game.rules.winner + ".");
+            console.log("Game won by Player " + this.game.rules.winner.logName + ".");
         }
         else if(!this.game.hasNextState)
         {
