@@ -5,7 +5,7 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
-const SEARCH_TIME = 5000;  // In milliseconds, so 5000 == 5 seconds.
+const SEARCH_TIME = 3000;  // In milliseconds, so 3000 == 3 seconds.
 
 export class MCTS_UCT_Logic
 {

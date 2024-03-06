@@ -1,7 +1,7 @@
 
 /// Tic Tac Toe
 
-import { Winner } from "./winner";
+import { Winner } from "./winner.js";
 
 const player1Mark = 'X'
 const player2Mark = 'O' 

@@ -3,7 +3,7 @@ export function Backpropagate(node, result)
 {
     // Update all parent ancestors of node. 
     // End after root is updated, that is, when parent === null.
-    while(node !== null)
+    while(node.parent !== null)
     {
         node.parent.visitCount++;
         node.parent.sumValue += result;

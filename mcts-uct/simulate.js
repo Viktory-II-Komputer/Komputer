@@ -1,6 +1,6 @@
-import { CheckersRules } from "../checkers";
-import { TicTacToeRules } from "../tictactoe";
-import { GetRandomNextBoard } from "../random";
+import { CheckersRules } from "../checkers.js";
+import { TicTacToeRules } from "../tictactoe.js";
+import { GetRandomNextBoard } from "../random.js";
 
 export function Simulate(child, game)
 {

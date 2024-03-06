@@ -1,16 +1,17 @@
-import { CheckersRules } from "../checkers";
-import { TicTacToeRules } from "../tictactoe";
-import { Backpropagate } from "./backpropagate";
-import { Node } from "./node";
+import { CheckersRules } from "../checkers.js";
+import { TicTacToeRules } from "../tictactoe.js";
+import { Backpropagate } from "./backpropagate.js";
+import { Node } from "./node.js";
 
+/// Add new nodes to given node as children, if able, or if terminal, update tree.
 export function Expand(node, game)
 {
     // If root, add nextPossibleBoards from current game to children.
-    // Since each child is the opponent's turn, set to opposite player.
     if (node.parent === null)
     {
         for (const nextBoard of game.rules.nextPossibleBoards)
         {
+            // Since each child is the opponent's turn, set to opposite player.
             node.children.set(new Node(nextBoard, !node.isPlayer1, node))
         }
     }

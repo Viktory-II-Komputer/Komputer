@@ -42,7 +42,7 @@ export function SelectNode(parent)
         // Continue search under best child.
         parent = bestChild;
     }
-    return bestChild;
+    return bestChild? bestChild : parent;
 }
 
 /*
