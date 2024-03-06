@@ -20,7 +20,7 @@ export function Expand(node, game)
     {
         let rules = getExpansionRules(game);
 
-        const hasNextState = rules.hasGeneratedNextPossibleStates(parent.board, parent.isPlayer1);
+        const hasNextState = rules.hasGeneratedNextPossibleStates(node.board, node.isPlayer1);
         if (hasNextState)
         {
             for (const nextBoard of rules.nextPossibleBoards)

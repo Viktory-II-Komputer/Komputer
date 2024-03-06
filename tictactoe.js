@@ -50,7 +50,7 @@ export class TicTacToeRules
     {
         for (const cell of board)
         {
-            if (cell == EMPTY)
+            if (cell === EMPTY)
                 return true;
         }
         return false;
@@ -76,13 +76,13 @@ export class TicTacToeRules
     {
         let opponentMark = isPlayer1? player2Mark : player1Mark;
         return (
-            ((board[0] ==   opponentMark) && (board[1] ==   opponentMark) && (board[2] ==   opponentMark)) || // Top row
-            ((board[3] ==   opponentMark) && (board[4] ==   opponentMark) && (board[5] ==   opponentMark)) || // Center row
-            ((board[6] ==   opponentMark) && (board[7] ==   opponentMark) && (board[8] ==   opponentMark)) || // Bottom row
-            ((board[0] ==   opponentMark) && (board[3] ==   opponentMark) && (board[6] ==   opponentMark)) || // Left column
-            ((board[1] ==   opponentMark) && (board[4] ==   opponentMark) && (board[7] ==   opponentMark)) || // Center column
-            ((board[2] ==   opponentMark) && (board[5] ==   opponentMark) && (board[8] ==   opponentMark)) || // Right column
-            ((board[0] ==   opponentMark) && (board[4] ==   opponentMark) && (board[8] ==   opponentMark)) || // Diagonal down
-            ((board[2] ==   opponentMark) && (board[4] ==   opponentMark) && (board[6] ==   opponentMark)));  // Diagonal up
+            ((board[0] ===   opponentMark) && (board[1] ===   opponentMark) && (board[2] ===   opponentMark)) || // Top row
+            ((board[3] ===   opponentMark) && (board[4] ===   opponentMark) && (board[5] ===   opponentMark)) || // Center row
+            ((board[6] ===   opponentMark) && (board[7] ===   opponentMark) && (board[8] ===   opponentMark)) || // Bottom row
+            ((board[0] ===   opponentMark) && (board[3] ===   opponentMark) && (board[6] ===   opponentMark)) || // Left column
+            ((board[1] ===   opponentMark) && (board[4] ===   opponentMark) && (board[7] ===   opponentMark)) || // Center column
+            ((board[2] ===   opponentMark) && (board[5] ===   opponentMark) && (board[8] ===   opponentMark)) || // Right column
+            ((board[0] ===   opponentMark) && (board[4] ===   opponentMark) && (board[8] ===   opponentMark)) || // Diagonal down
+            ((board[2] ===   opponentMark) && (board[4] ===   opponentMark) && (board[6] ===   opponentMark)));  // Diagonal up
     }
 }

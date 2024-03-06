@@ -8,7 +8,7 @@ export function SelectNode(parent)
     let bestChild = null;
 
     // If the given parent has a map of children, find the best descendant.
-    while (parent.children.length > 0)
+    while (parent.children.size > 0)
     {
         for (let child of parent.children.keys())
         {
@@ -19,19 +19,19 @@ export function SelectNode(parent)
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(parent.visitCount) / child.visitCount ) )
                     );
                 parent.children.set(child, UCB_score);
-                // For player1, best is max child.
+                // For player1, best is min child.
                 if (parent.isPlayer1)
                 {
-                    if (UCB_score > bestUCB)
+                    if (UCB_score < bestUCB)
                     {
                         bestUCB = UCB_score;
                         bestChild = child;
                     }
                 }
-                // For player2, best is min child.
+                // For player2, best is max child.
                 else
                 {
-                    if (UCB_score < bestUCB)
+                    if (UCB_score > bestUCB)
                     {
                         bestUCB = UCB_score;
                         bestChild = child;
