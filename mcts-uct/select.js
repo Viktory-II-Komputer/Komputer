@@ -1,3 +1,4 @@
+import { GetRandomKey } from "../random.js";
 
 const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
 
@@ -15,21 +16,20 @@ export function SelectNode(root)
         {
             if (child.visitCount > 0)
             {
-                const playerMultiplier = selectedNode.isPlayer1? 1 : -1;
+                const playerMultiplier = selectedNode.isPlayer1? -1 : 1;
                 const UCB_score = (playerMultiplier *
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                // selectedNode.children.set(child, UCB_score);  --Now using best visitCount for final choice, so saving UCB unnecessary.
+                // selectedNode.children.set(child, UCB_score); // May use best visitCount for final choice, not sure.
                 if (UCB_score > bestUCB)
                 {
                     bestUCB = UCB_score;
                     bestChild = child;
                 }
-
             }
         }
         // Continue search under best child.
-        selectedNode = bestChild? bestChild: selectedNode.children.keys().next().value;
+        selectedNode = bestChild? bestChild: GetRandomKey(selectedNode.children); // selectedNode.children.keys().next().value;
         bestUCB = 0;
         bestChild = null;
     }

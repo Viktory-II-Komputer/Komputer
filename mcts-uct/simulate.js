@@ -6,17 +6,25 @@ export function Simulate(child, game)
 {
     child.visitCount++; 
     let result = 0;
-    let isWinner = getPlayer1IsWinner(child.board, child.isPlayer1, game);
-    if (isWinner !== null)
+    const IS_PLAYER1_WINNER = getisPlayer1Winner(child.board, child.isPlayer1, game);
+    if (IS_PLAYER1_WINNER === null)
+    {
+        result = child.isPlayer1? 0.125 : -0.125;
+    }
+    else if (IS_PLAYER1_WINNER)
     {
         result = child.isPlayer1? 1 : -1;
-        child.sumValue += result; 
     }
+    else // Player 2 is winner.
+    {
+        result = child.isPlayer1? -1 : 1;
+    }
+    child.sumValue += result; 
     return result;
 }
 
 // Return true for player1 win or false for loss, null if none. 
-function getPlayer1IsWinner(board, isPlayer1, game)
+function getisPlayer1Winner(board, isPlayer1, game)
 {
     let rules = getSimulationRules(game);
 

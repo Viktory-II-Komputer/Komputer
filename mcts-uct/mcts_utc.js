@@ -6,7 +6,7 @@ import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
 const SEARCH_TIME = 2000;  // In milliseconds, so 1000 == 1 second.
-const MAX_ITERATIONS = 64000;  
+const MAX_ITERATIONS = 1234567; // 64000;  
 
 export class MCTS_UCT_Logic
 {
@@ -58,10 +58,16 @@ export class MCTS_UCT_Logic
     getBest()
     {
         let bestChild = null;
+        let bestUCT = 0;
         let bestVisitCount = 0;
 
         for (let child of this.rootNode.children.keys())
         {
+            // if (this.rootNode.children.get(child) > bestVisitCount)
+            // {
+            //     bestVisitCount = child.visitCount;
+            //     bestChild = child;
+            // }
             if (child.visitCount > bestVisitCount)
             {
                 bestVisitCount = child.visitCount;
