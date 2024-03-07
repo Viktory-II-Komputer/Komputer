@@ -11,7 +11,7 @@ export function GetRandomNextBoard(rules)
 
 // Returns random key from Set or Map.
 // Source: https://stackoverflow.com/questions/42739256/how-get-random-item-from-es6-map-or-set
-// Note that this is slow - if there's a lot of keys, better take one of the first few keys,
+// This is slow O(n), so if there's a lot of keys, better take one of the first few keys,
 // Or use a data structure that supports random access.
 export function GetRandomKey(collection) {
     let counter = 0;
