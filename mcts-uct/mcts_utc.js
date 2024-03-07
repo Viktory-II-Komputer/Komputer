@@ -5,8 +5,8 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
-const SEARCH_TIME = 3000;  // In milliseconds, so 1000 == 1 second.
-const MAX_ITERATIONS = 9000;
+const SEARCH_TIME = 2000;  // In milliseconds, so 1000 == 1 second.
+const MAX_ITERATIONS = 64000;  
 
 export class MCTS_UCT_Logic
 {
@@ -23,7 +23,6 @@ export class MCTS_UCT_Logic
         this.rootNode = new Node(game.board, isPlayer1);
         this.game = game;
         Expand(this.rootNode, this.game);
-
         // For each immediate child of root, simulate once.
         for (let child of this.rootNode.children.keys())
         {
@@ -34,7 +33,7 @@ export class MCTS_UCT_Logic
 
     getNextState()
     {
-        while (this.isTimeToThink() && this.rootNode.visitCount < MAX_ITERATIONS)
+        while (this.isTimeToThink() && (this.rootNode.visitCount < MAX_ITERATIONS))
         {
             let nodeToVisit = SelectNode(this.rootNode);
             Expand(nodeToVisit, this.game);
@@ -59,13 +58,13 @@ export class MCTS_UCT_Logic
     getBest()
     {
         let bestChild = null;
-        let maxVisitCount = 0;
+        let bestVisitCount = 0;
 
         for (let child of this.rootNode.children.keys())
         {
-            if (child.visitCount > maxVisitCount)
+            if (child.visitCount > bestVisitCount)
             {
-                maxVisitCount = child.visitCount;
+                bestVisitCount = child.visitCount;
                 bestChild = child;
             }
         }

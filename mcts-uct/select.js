@@ -8,36 +8,24 @@ export function SelectNode(root)
     let bestChild = null;
     let selectedNode = root.clone();
 
-    // If the given parent has a map of children, find the best descendant.
+    // If the selected node has a map of children, find the best descendant.
     while (selectedNode.children.size > 0)
     {
         for (let child of selectedNode.children.keys())
         {
-            // If visited, set UCB score. If score is best, cache.
             if (child.visitCount > 0)
             {
-                const UCB_score = (
+                const playerMultiplier = selectedNode.isPlayer1? 1 : -1;
+                const UCB_score = (playerMultiplier *
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                selectedNode.children.set(child, UCB_score);
-                // For player1, best is max child.
-                if (selectedNode.isPlayer1)
+                // selectedNode.children.set(child, UCB_score);  --Now using best visitCount for final choice, so saving UCB unnecessary.
+                if (UCB_score > bestUCB)
                 {
-                    if (UCB_score > bestUCB)
-                    {
-                        bestUCB = UCB_score;
-                        bestChild = child;
-                    }
+                    bestUCB = UCB_score;
+                    bestChild = child;
                 }
-                // For player2, best is min child.
-                else
-                {
-                    if (UCB_score < bestUCB)
-                    {
-                        bestUCB = UCB_score;
-                        bestChild = child;
-                    }
-                }
+
             }
         }
         // Continue search under best child.
