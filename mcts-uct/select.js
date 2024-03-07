@@ -4,24 +4,24 @@ const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, wh
 /// Return descendent child key with max UCB value.
 export function SelectNode(root)
 {
-    let parent = root.clone();
     let bestUCB = 0;
     let bestChild = null;
+    let selectedNode = root.clone();
 
     // If the given parent has a map of children, find the best descendant.
-    while (parent.children.size > 0)
+    while (selectedNode.children.size > 0)
     {
-        for (let child of parent.children.keys())
+        for (let child of selectedNode.children.keys())
         {
             // If visited, set UCB score. If score is best, cache.
             if (child.visitCount > 0)
             {
                 const UCB_score = (
-                    (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(parent.visitCount) / child.visitCount ) )
+                    (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                parent.children.set(child, UCB_score);
+                selectedNode.children.set(child, UCB_score);
                 // For player1, best is max child.
-                if (parent.isPlayer1)
+                if (selectedNode.isPlayer1)
                 {
                     if (UCB_score > bestUCB)
                     {
@@ -41,11 +41,11 @@ export function SelectNode(root)
             }
         }
         // Continue search under best child.
-        parent = bestChild? bestChild: parent.children.keys().next().value;
+        selectedNode = bestChild? bestChild: selectedNode.children.keys().next().value;
         bestUCB = 0;
         bestChild = null;
     }
-    return bestChild? bestChild : root.children.keys().next().value;
+    return selectedNode;
 }
 
 /*
