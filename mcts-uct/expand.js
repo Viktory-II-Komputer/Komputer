@@ -1,7 +1,8 @@
 import { CheckersRules } from "../checkers.js";
 import { TicTacToeRules } from "../tictactoe.js";
-import { Backpropagate } from "./backpropagate.js";
 import { Node } from "./node.js";
+import { Simulate } from "./simulate.js";
+import { Backpropagate } from "./backpropagate.js";
 
 /// Add new nodes to given node as children, if able, or if terminal, update tree.
 export function Expand(node, game)
@@ -12,7 +13,7 @@ export function Expand(node, game)
         for (const nextBoard of game.rules.nextPossibleBoards)
         {
             // Since each child is the opponent's turn, set to opposite player.
-            node.children.set(new Node(nextBoard, !node.isPlayer1, node))
+            node.children.set(new Node(nextBoard, !node.isPlayer1, 0, 0, node, null));
         }
     }
     // Else, generate nextPossibleBoards, if able. For each board, add to children, as an opponent.
@@ -25,14 +26,14 @@ export function Expand(node, game)
         {
             for (const nextBoard of rules.nextPossibleBoards)
             {
-                node.children.set(new Node(nextBoard, !node.isPlayer1, node))
+                node.children.set(new Node(nextBoard, !node.isPlayer1, 0, 0, node, null))
             }
         }
         // If leaf node (game in terminal state), get result and update tree.
         else
         {
-            const result = Simulate(parent, game);
-            Backpropagate(parent, result);
+            const result = Simulate(node, game);
+            Backpropagate(node, result);
         }
     }
 }

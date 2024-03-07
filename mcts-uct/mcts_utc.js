@@ -34,30 +34,26 @@ export class MCTS_UCT_Logic
 
     getNextState()
     {
-        let nodeToVisit = SelectNode(this.rootNode);
-        Expand(nodeToVisit, this.game);
-        for (let child of nodeToVisit.children.keys())
+        while (this.isTimeToThink() && this.rootNode.visitCount < this.MAX_ITERATIONS)
         {
-            if (child.visitCount === 0)
+            let nodeToVisit = SelectNode(this.rootNode);
+            Expand(nodeToVisit, this.game);
+            for (let child of nodeToVisit.children.keys())
             {
-                const result = Simulate(child, this.game);
-                Backpropagate(child, result);
-                break;
+                if (child.visitCount === 0)
+                {
+                    const result = Simulate(child, this.game);
+                    Backpropagate(child, result);
+                    break;
+                }
             }
         }
-        if (this.isTimeToDecide() || this.rootNode.visitCount > this.MAX_ITERATIONS)
-        {
-            return this.getBest();
-        }
-        else
-        {
-            this.getNextState();
-        }
+        return this.getBest();
     }
 
-    isTimeToDecide()
+    isTimeToThink()
     {
-        return (Date.now() > this.endSearchTime);
+        return (Date.now() < this.endSearchTime);
     }
 
     getBest()

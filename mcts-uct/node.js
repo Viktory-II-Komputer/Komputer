@@ -1,13 +1,19 @@
 
 export class Node
 {
-    constructor(board, isPLayer1, parent = null)
+    constructor(board, isPlayer1, visitCount = 0, sumValue = 0, parent = null, children = null)
     {
         this.board = board;
-        this.isPLayer1 = isPLayer1;
-        this.visitCount = 0;
-        this.sumValue = 0;
+        this.isPlayer1 = isPlayer1;
+        this.visitCount = visitCount;
+        this.sumValue = sumValue;
         this.parent = parent;
-        this.children = new Map();
+        this.children = new Map(children);
+    }
+
+    clone()
+    {
+        let clone = new Node(this.board, this.isPlayer1, this.visitCount, this.sumValue, this.parent, this.children);
+        return clone;
     }
 }
