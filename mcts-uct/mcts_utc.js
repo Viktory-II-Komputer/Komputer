@@ -58,16 +58,10 @@ export class MCTS_UCT_Logic
     getBest()
     {
         let bestChild = null;
-        let bestUCT = 0;
         let bestVisitCount = 0;
 
         for (let child of this.rootNode.children.keys())
         {
-            // if (this.rootNode.children.get(child) > bestVisitCount)
-            // {
-            //     bestVisitCount = child.visitCount;
-            //     bestChild = child;
-            // }
             if (child.visitCount > bestVisitCount)
             {
                 bestVisitCount = child.visitCount;

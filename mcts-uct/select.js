@@ -20,7 +20,7 @@ export function SelectNode(root)
                 const UCB_score = (playerMultiplier *
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                // selectedNode.children.set(child, UCB_score); // May use best visitCount for final choice, not sure.
+                // selectedNode.children.set(child, UCB_score); // Now using best visitCount for final choice, so saving UCB is unnecessary.
                 if (UCB_score > bestUCB)
                 {
                     bestUCB = UCB_score;
