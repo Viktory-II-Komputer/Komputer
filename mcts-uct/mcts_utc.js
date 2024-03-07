@@ -5,8 +5,8 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
-const SEARCH_TIME = 2000;  // In milliseconds, so 1000 == 1 second.
-const MAX_ITERATIONS = 1234567; // 64000;  
+const SEARCH_TIME = 1200;  // In milliseconds, so 1000 == 1 second.
+const MAX_ITERATIONS = Number.MAX_SAFE_INTEGER;   
 
 export class MCTS_UCT_Logic
 {
