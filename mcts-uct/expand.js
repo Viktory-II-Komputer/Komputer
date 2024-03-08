@@ -19,12 +19,12 @@ export function Expand(node, game)
     // Else, generate nextPossibleBoards, if able. For each board, add to children, as an opponent.
     else
     {
-        let rules = getExpansionRules(game);
+        const RULES = getExpansionRules(game);
 
-        const hasNextState = rules.hasGeneratedNextPossibleStates(node.board, node.isPlayer1);
+        const hasNextState = RULES.hasGeneratedNextPossibleStates(node.board, node.isPlayer1);
         if (hasNextState)
         {
-            for (const nextBoard of rules.nextPossibleBoards)
+            for (const nextBoard of RULES.nextPossibleBoards)
             {
                 node.children.set(new Node(nextBoard, !node.isPlayer1, 0, 0, node, null))
             }

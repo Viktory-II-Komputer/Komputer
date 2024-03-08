@@ -27,14 +27,14 @@ export function Simulate(child, game)
 // Return true for player1 win or false for loss, null if none. 
 function getisPlayer1Winner(board, isPlayer1, game)
 {
-    let rules = getSimulationRules(game);
+    const RULES = getSimulationRules(game);
 
     while(true)
     {
-        const hasNextState = rules.hasGeneratedNextPossibleStates(board, isPlayer1);
-        if (rules.winner.isPlayer1 !== null)
+        const hasNextState = RULES.hasGeneratedNextPossibleStates(board, isPlayer1);
+        if (RULES.winner.isPlayer1 !== null)
         {
-            return rules.winner.isPlayer1;
+            return RULES.winner.isPlayer1;
         }
         else if(!hasNextState)
         {
@@ -42,7 +42,7 @@ function getisPlayer1Winner(board, isPlayer1, game)
         }
         else
         {
-            board = GetRandomNextBoard(rules);
+            board = GetRandomNextBoard(RULES);
             isPlayer1 = !isPlayer1;
         }
     }
@@ -65,4 +65,3 @@ function getSimulationRules(game)
     }
     return rules;
 }
-

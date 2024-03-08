@@ -1,7 +1,6 @@
 
 /// Functions for random behavior.
 
-// Gets random item from Array
 export function GetRandomNextBoard(rules)
 {
     const MAX = rules.nextPossibleBoards.length;
@@ -23,10 +22,8 @@ export function GetRandomKey(collection) {
     }
 }
 
-
 // Returns random integer between [zero, max).
 function getRandomIndexExclusive(max)
 {
     return Math.floor(Math.random() * max);
 }
-

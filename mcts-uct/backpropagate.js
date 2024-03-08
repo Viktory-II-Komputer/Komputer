@@ -6,6 +6,7 @@ export function Backpropagate(node, result)
     {
         result = -result;
         node.parent.sumValue += result;
+        node.parent.visitCount++;
         node = node.parent;
     }
 }
