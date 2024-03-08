@@ -2,6 +2,7 @@ import { CheckersRules } from "../checkers.js";
 import { TicTacToeRules } from "../tictactoe.js";
 import { GetRandomNextBoard } from "../random.js";
 
+// Returned result is 1 for player1 win, -1 for player1 loss, or some small value for a tie.
 export function Simulate(child, game)
 {
     child.visitCount++; 
@@ -9,15 +10,15 @@ export function Simulate(child, game)
     const IS_PLAYER1_WINNER = getisPlayer1Winner(child.board, child.isPlayer1, game);
     if (IS_PLAYER1_WINNER === null)
     {
-        result = child.isPlayer1? 0.125 : -0.125;
+        result = child.parent.isPlayer1? 0.125 : -0.125;
     }
     else if (IS_PLAYER1_WINNER)
     {
-        result = child.isPlayer1? 1 : -1;
+        result = child.parent.isPlayer1? 1 : -1;
     }
     else // Player 2 is winner.
     {
-        result = child.isPlayer1? -1 : 1;
+        result = child.parent.isPlayer1? -1 : 1;
     }
     child.sumValue += result; 
     return result;

@@ -1,11 +1,10 @@
 
 export function Backpropagate(node, result)
 {
-    // Update all parent ancestors of node. 
-    // End after root is updated, that is, when parent === null.
+    // Update all parent ancestors of node, ending after root is updated.
     while(node.parent !== null)
     {
-        node.parent.visitCount++;
+        result = -result;
         node.parent.sumValue += result;
         node = node.parent;
     }
@@ -13,6 +12,7 @@ export function Backpropagate(node, result)
 
 /* 
 
-The passed-in result is 1 for player1 win, -1 for player1 loss, or 0 for no winner.
+Each parent's value is negated, as this is the value from the grandparent's perspective, or in other words,
+Negation gives the same reward to each ancestor that matches the simulated node's player, or the opposite reward otherwise.
 
 */
