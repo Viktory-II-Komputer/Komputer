@@ -1,6 +1,6 @@
 import { GetRandomKey } from "../random.js";
 
-const UCB_C = 16;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
+const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
 
 /// Return descendent child key with max UCB value.
 export function SelectNode(root)
@@ -16,19 +16,18 @@ export function SelectNode(root)
         {
             if (child.visitCount > 0)
             {
-                const UCB_score = ( 
+                const UCB_SCORE = ( 
                     (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                // selectedNode.children.set(child, UCB_score); // Now using best visitCount for final choice, so saving UCB is unnecessary.
-                if (UCB_score > bestUCB)
+                if (UCB_SCORE > bestUCB)
                 {
-                    bestUCB = UCB_score;
+                    bestUCB = UCB_SCORE;
                     bestChild = child;
                 }
             }
         }
         // Continue search under best child.
-        selectedNode = bestChild? bestChild: GetRandomKey(selectedNode.children); // selectedNode.children.keys().next().value;
+        selectedNode = bestChild? bestChild: GetRandomKey(selectedNode.children); // Use this, or maybe use selectedNode.children.keys().next().value;
         bestUCB = 0;
         bestChild = null;
     }

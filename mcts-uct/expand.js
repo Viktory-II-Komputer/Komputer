@@ -1,7 +1,6 @@
 import { CheckersRules } from "../checkers.js";
 import { TicTacToeRules } from "../tictactoe.js";
 import { Node } from "./node.js";
-import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 
 /// Add new nodes to given node as children, if able, or if terminal, update tree.
@@ -10,10 +9,10 @@ export function Expand(node, game)
     // If root, add nextPossibleBoards from current game to children.
     if (node.parent === null)
     {
-        for (const nextBoard of game.rules.nextPossibleBoards)
+        for (const NEXTBOARD of game.rules.nextPossibleBoards)
         {
             // Since each child is the opponent's turn, set to opposite player.
-            node.children.set(new Node(nextBoard, !node.isPlayer1, 0, 0, node, null));
+            node.children.set(new Node(NEXTBOARD, !node.isPlayer1, 0, 0, node, null));
         }
     }
     // Else, generate nextPossibleBoards, if able. For each board, add to children, as an opponent.
@@ -21,19 +20,18 @@ export function Expand(node, game)
     {
         const RULES = getExpansionRules(game);
 
-        const hasNextState = RULES.hasGeneratedNextPossibleStates(node.board, node.isPlayer1);
-        if (hasNextState)
+        const HAS_NEXT_STATE = RULES.hasGeneratedNextPossibleStates(node.board, node.isPlayer1);
+        if (HAS_NEXT_STATE)
         {
-            for (const nextBoard of RULES.nextPossibleBoards)
+            for (const NEXT_BOARD of RULES.nextPossibleBoards)
             {
-                node.children.set(new Node(nextBoard, !node.isPlayer1, 0, 0, node, null))
+                node.children.set(new Node(NEXT_BOARD, !node.isPlayer1, 0, 0, node, null))
             }
         }
-        // If leaf node (game in terminal state), get result and update tree.
+        // When node is a leaf (game in terminal state), check result and update tree.
         else
         {
-            const result = Simulate(node, game);
-            Backpropagate(node, result);
+            handleLeaf(node, RULES);
         }
     }
 }
@@ -51,4 +49,24 @@ function getExpansionRules(game)
             break;
     }
     return null;
+}
+
+function handleLeaf(node, RULES)
+{
+    let result = 0;
+    if (RULES.winner.isPlayer1 === null)
+    {
+        result = node.parent.isPlayer1? 0.5 : -0.5;
+    }
+    else if (RULES.winner.isPlayer1) 
+    {
+        result = node.parent.isPlayer1? 1 : -1;
+    }
+    else // Player2 won.
+    {
+        result = node.parent.isPlayer1? -1 : 1;
+    }
+    node.sumValue += result;
+    node.visitCount++;
+    Backpropagate(node, result);
 }

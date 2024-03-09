@@ -31,12 +31,12 @@ function getisPlayer1Winner(board, isPlayer1, game)
 
     while(true)
     {
-        const hasNextState = RULES.hasGeneratedNextPossibleStates(board, isPlayer1);
+        const HAS_NEXT_STATE = RULES.hasGeneratedNextPossibleStates(board, isPlayer1);
         if (RULES.winner.isPlayer1 !== null)
         {
             return RULES.winner.isPlayer1;
         }
-        else if(!hasNextState)
+        else if(!HAS_NEXT_STATE)
         {
             return null;
         }
