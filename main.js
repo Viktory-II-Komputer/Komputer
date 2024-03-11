@@ -1,8 +1,8 @@
 import { Agent } from './agent.js';
 import { Game } from './game.js';
 
-const GAME_TO_PLAY = "TicTacToe"; // "Checkers" //  
-const AGENT_TYPE = "MCTS-UCT" // "Random"   
+const GAME_TO_PLAY = "TicTacToe"; // "Checkers"; //  
+const AGENT_TYPE = "MCTS-UCT"; // "Random" //  
 const MAX_TURN = 200;
 
 // Initialization 
