@@ -56,15 +56,15 @@ function handleLeaf(node, RULES)
     let result = 0;
     if (RULES.winner.isPlayer1 === null)
     {
-        result = node.parent.isPlayer1? 0.5 : -0.5;
+        result = node.parent.isPlayer1? 0.125 : -0.125;
     }
     else if (RULES.winner.isPlayer1) 
     {
-        result = node.parent.isPlayer1? 1 : -1;
+        result = node.parent.isPlayer1? Number.MAX_VALUE : Number.MIN_VALUE; // 1 : -1;
     }
     else // Player2 won.
     {
-        result = node.parent.isPlayer1? -1 : 1;
+        result = node.parent.isPlayer1? Number.MIN_VALUE : Number.MAX_VALUE; // -1 : 1;
     }
     node.sumValue += result;
     node.visitCount++;

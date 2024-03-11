@@ -16,13 +16,25 @@ export function SelectNode(root)
         {
             if (child.visitCount > 0)
             {
+                const PLAYER_MULTIPLIER = child.parent.isPlayer1? 1 : -1;
                 const UCB_SCORE = ( 
-                    (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
+                    ((child.sumValue * PLAYER_MULTIPLIER) / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
                     );
-                if (UCB_SCORE > bestUCB)
+                if (child.parent.isPlayer1)
                 {
-                    bestUCB = UCB_SCORE;
-                    bestChild = child;
+                    if (UCB_SCORE > bestUCB)
+                    {
+                        bestUCB = UCB_SCORE;
+                        bestChild = child;
+                    }
+                }
+                else
+                {
+                    if (UCB_SCORE < bestUCB)
+                    {
+                        bestUCB = UCB_SCORE;
+                        bestChild = child;
+                    }
                 }
             }
         }

@@ -10,7 +10,7 @@ export function Simulate(child, game)
     const IS_PLAYER1_WINNER = getisPlayer1Winner(child.board, child.isPlayer1, game);
     if (IS_PLAYER1_WINNER === null)
     {
-        result = child.parent.isPlayer1? 0.5 : -0.5;
+        result = child.parent.isPlayer1? 0.125 : -0.125;
     }
     else if (IS_PLAYER1_WINNER)
     {
