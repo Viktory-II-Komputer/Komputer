@@ -3,9 +3,9 @@
 export const SETUP = {
 
     // Tournament
-    ALTERNATE_PLAY_ORDER : false,
-    AGENT_0 : "MCTS-UCT", // Agent who plays the first game first. Use MCTS-UCT or Random.
-    AGENT_1 : "Random", 
+    ALTERNATE_PLAY_ORDER : true,
+    AGENT_0 : "Random", // Agent who plays the first game first. Use MCTS-UCT or Random.
+    AGENT_1 : "MCTS-UCT", 
     GAME_TO_PLAY : "TicTacToe", // Use TicTacToe or Checkers
     MAX_TURNS_PER_GAME : 200,
     TOURNAMENT_LENGTH : 100,  // Should be >= 1 game.
