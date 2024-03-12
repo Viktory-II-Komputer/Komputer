@@ -4,7 +4,7 @@ import { SETUP } from "../setup.js";
 
 const MAX_TURN = SETUP.MAX_TURNS_PER_GAME;
 const MAX_GAME_COUNT = SETUP.TOURNAMENT_LENGTH;
-const ALTERNATE_PLAY = SETUP.ALTERNATE_PLAY_ORDER;
+const SHOULD_ALTERNATE_PLAY_ORDER = SETUP.SHOULD_ALTERNATE_PLAY_ORDER;
 
 // Initialization 
 let game = getNewGame();
@@ -43,7 +43,7 @@ for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
     if (gameCount !== LAST_GAME_COUNT)
     {
         game = getNewGame();
-        if (ALTERNATE_PLAY)
+        if (SHOULD_ALTERNATE_PLAY_ORDER)
         {
             agents[0].begin(game, agents[0].isPlayer1? false : true);
             agents[1].begin(game, agents[1].isPlayer1? false : true);    
