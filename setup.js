@@ -10,7 +10,7 @@ export const SETUP = {
     MAX_TURNS_PER_GAME : 200,
     TOURNAMENT_LENGTH : 100,  // Should be >= 1 game.
 
-    // MCTS
+    // MCTS-UCT
     SEARCH_TIME : 10000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
     MAX_ITERATIONS : Number.MAX_VALUE,  // If using break points, set this, not time. For one second, try 3-4 million.
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where zero is greedy.
