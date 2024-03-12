@@ -27,7 +27,6 @@ export class Game
                 console.error("Error: invalid game.")
                 break;
         }
-        console.log("Game constructed.");
     }
  
     /// Console logs board from top (index 0) to bottom.

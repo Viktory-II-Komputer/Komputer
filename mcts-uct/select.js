@@ -1,6 +1,7 @@
 import { GetRandomKey } from "../random.js";
+import { SETUP } from "../setup.js";
 
-const UCB_C = 2;  // Formula constant that controls ratio of exploit-explore, where zero is greedy.
+const UCB_C = SETUP.UCB_FORMULA_CONSTANT; 
 
 /// Return descendent child key with max UCB value.
 export function SelectNode(root)

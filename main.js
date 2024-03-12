@@ -1,22 +1,90 @@
 import { Agent } from './agent.js';
 import { Game } from './game.js';
+import { SETUP } from "../setup.js";
 
-const GAME_TO_PLAY = "TicTacToe"; // "Checkers"; //  
-const AGENT_TYPE = "MCTS-UCT"; // "Random" //  
-const MAX_TURN = 200;
+const MAX_TURN = SETUP.MAX_TURNS_PER_GAME;
+const MAX_GAME_COUNT = SETUP.TOURNAMENT_LENGTH;
+const ALTERNATE_PLAY = SETUP.ALTERNATE_PLAY_ORDER;
 
 // Initialization 
-let game = new Game(GAME_TO_PLAY);
-let agent = new Agent(AGENT_TYPE); 
+let game = getNewGame();
+let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)]
+agents[0].begin(game);
+agents[1].begin(game, false);
 
-agent.begin(game);
-
-// Update loop
-let turn = 0;
-while (game.isDone === false && turn < MAX_TURN) 
+// Tournament Loop
+const LAST_GAME_COUNT = MAX_GAME_COUNT - 1;
+for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
 {
-    agent.continue(++turn);
-    agent.isPlayer1 = !agent.isPlayer1;
+    let agent = getFirstAgent(agents); 
+    let turn = 0;
+    // Game Turn Loop
+    while (game.isDone === false && turn < MAX_TURN) 
+    {
+        agent.continue(++turn);
+        agent = getNextAgent(agents, agent);  
+    }
+    console.log(`End game %s.`, gameCount + 1);
+ 
+    // Increment wins
+    if (!wasTie(game)) 
+    {
+        if (didAgentZeroWin(game)) 
+        {
+            agents[0].winCount++;
+        }
+        else
+        {
+            agents[1].winCount++;
+        }
+    }   
+
+    // If not last game, reset.
+    if (gameCount !== LAST_GAME_COUNT)
+    {
+        game = getNewGame();
+        if (ALTERNATE_PLAY)
+        {
+            agents[0].begin(game, agents[0].isPlayer1? false : true);
+            agents[1].begin(game, agents[1].isPlayer1? false : true);    
+        }
+        else
+        {
+            agents[0].begin(game);
+            agents[1].begin(game, false);
+        }
+    }
 }
 
-console.log("End script.");
+console.log("End tournament.");
+console.log(`%s wins: %s`, agents[0].logName, agents[0].winCount);
+console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
+
+/// End main script.
+/// Helper functions below.
+
+function getNewGame()
+{
+    return new Game(SETUP.GAME_TO_PLAY);
+}
+
+function getFirstAgent(agents)
+{
+    return agents[0].isPlayer1? agents[0] : agents[1];
+}
+
+function getNextAgent(agents, currentAgent)
+{
+    // Swap agents, considering that agents may or may not alternate by game.  
+    return agents[ (currentAgent.isPlayer1 && agents[0].isPlayer1 || !currentAgent.isPlayer1 && !agents[0].isPlayer1)? 1 : 0 ]; 
+}
+
+function wasTie(game)
+{
+    return (game.rules.winner.isPlayer1 === null);
+}
+
+function didAgentZeroWin(game)
+{
+    return (game.rules.winner.isPlayer1 && agents[0].isPlayer1 || !game.rules.winner.isPlayer1 && !agents[0].isPlayer1)
+}

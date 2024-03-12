@@ -2,6 +2,12 @@ import { CheckersRules } from "../checkers.js";
 import { TicTacToeRules } from "../tictactoe.js";
 import { Node } from "./node.js";
 import { Backpropagate } from "./backpropagate.js";
+import { SETUP } from "../setup.js";
+
+const PLAYER1_WIN = SETUP.REWARD.PLAYER1_WIN;
+const PLAYER2_WIN = SETUP.REWARD.PLAYER2_WIN;
+const PLAYER1_TIE = SETUP.REWARD.PLAYER1_TIE;
+const PLAYER2_TIE = SETUP.REWARD.PLAYER2_TIE;
 
 /// Add new nodes to given node as children, if able, or if terminal, update tree.
 export function Expand(node, game)
@@ -56,15 +62,15 @@ function handleLeaf(node, RULES)
     let result = 0;
     if (RULES.winner.isPlayer1 === null)
     {
-        result = node.parent.isPlayer1? 0.5 : -0.5;
+        result = node.parent.isPlayer1? PLAYER1_TIE : PLAYER2_TIE;
     }
     else if (RULES.winner.isPlayer1) 
     {
-        result = node.parent.isPlayer1? 1 : -1;
+        result = node.parent.isPlayer1? PLAYER1_WIN : PLAYER2_WIN;
     }
     else // Player2 won.
     {
-        result = node.parent.isPlayer1? -1 : 1;
+        result = node.parent.isPlayer1? PLAYER2_WIN : PLAYER1_WIN;
     }
     node.sumValue += result;
     node.visitCount++;

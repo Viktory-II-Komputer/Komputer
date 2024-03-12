@@ -21,6 +21,7 @@ export class Agent
         }
         this.game = null;
         this.isPlayer1 = null;
+        this.winCount = 0;
         console.log(this.logName + " Agent constructed.");
     }
 
@@ -28,17 +29,20 @@ export class Agent
     {
         this.game = game;
         this.isPlayer1 = isPlayer1;
-        game.logBoard();
-        console.log("Begin play on: " + game.logName + ".");
+        if (isPlayer1)
+        {
+            game.logBoard();
+            console.log('%s begins.', this.logName);
+        }
     }
 
-    continue(turn)
+    continue(turnNumberToLog)
     {
         this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
-        if (this.game.rules.winner.isPlayer1 !== null)
+        if (this.game.rules.winner.isPlayer1 !== null)  // Check for winner.
         {
             this.game.isDone = true;
-            console.log("Game won by Player " + this.game.rules.winner.logName + ".");
+            console.log('Game won by Player %s.', this.game.rules.winner.logName);
         }
         else if(!this.game.hasNextState)
         {
@@ -49,7 +53,7 @@ export class Agent
         {
             this.chooseNextState();
             this.game.logBoard();
-            console.log("Turn: " + turn);
+            console.log(`Turn %s: %s`, turnNumberToLog, this.logName); 
         }
     }
 

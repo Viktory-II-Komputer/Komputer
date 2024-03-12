@@ -4,9 +4,10 @@ import { SelectNode } from "./select.js";
 import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
+import { SETUP } from "../setup.js";
 
-const SEARCH_TIME = 7000 // In milliseconds, so 1000 == 1 second. If using debugger, set to NUMBER.MAX_VALUE
-const MAX_ITERATIONS = Number.MAX_VALUE; // For one second of thought, try 3-4 million.
+const SEARCH_TIME = SETUP.SEARCH_TIME;
+const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;
 
 export class MCTS_UCT_Logic
 {
