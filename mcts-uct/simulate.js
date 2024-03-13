@@ -3,30 +3,20 @@ import { TicTacToeRules } from "../tictactoe.js";
 import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 
-const PLAYER1_WIN = SETUP.REWARD.PLAYER1_WIN;
-const PLAYER2_WIN = SETUP.REWARD.PLAYER2_WIN;
-const PLAYER1_TIE = SETUP.REWARD.PLAYER1_TIE;
-const PLAYER2_TIE = SETUP.REWARD.PLAYER2_TIE;
-
-// Returned result is 1 for player1 win, -1 for player1 loss, or some small value for a tie.
 export function Simulate(child, game)
 {
-    child.visitCount++; 
     let result = 0;
     const IS_PLAYER1_WINNER = getisPlayer1Winner(child.board, child.isPlayer1, game);
     if (IS_PLAYER1_WINNER === null)
     {
-        result = child.parent.isPlayer1? PLAYER1_TIE : PLAYER2_TIE;
+        result = SETUP.REWARD.TIE;
     }
-    else if (IS_PLAYER1_WINNER)
+    else if (IS_PLAYER1_WINNER && child.parent.isPlayer1 || !IS_PLAYER1_WINNER && !child.parent.isPlayer1) 
     {
-        result = child.parent.isPlayer1? PLAYER1_WIN : PLAYER2_WIN;
-    }
-    else // Player 2 is winner.
-    {
-        result = child.parent.isPlayer1? PLAYER2_WIN : PLAYER1_WIN;
+        result = SETUP.REWARD.WIN; 
     }
     child.sumValue += result; 
+    child.visitCount++; 
     return result;
 }
 

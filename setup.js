@@ -3,15 +3,15 @@
 export const SETUP = {
 
     // Tournament
-    AGENT_0 : "MCTS-UCT", // Agent who plays the first game first. Use MCTS-UCT or Random.
+    AGENT_0 : "Random",  // Agent who plays the first game first. Use MCTS-UCT or Random.
     AGENT_1 : "MCTS-UCT", 
-    SHOULD_ALTERNATE_PLAY_ORDER : false,
-    GAME_TO_PLAY : "TicTacToe", // Use TicTacToe or Checkers
+    GAME_TO_PLAY : "TicTacToe",  // Use TicTacToe or Checkers
+    SHOULD_ALTERNATE_PLAY_ORDER : false,  // Per game, swap who plays first.
     MAX_TURNS_PER_GAME : 200,
-    TOURNAMENT_LENGTH : 100,  // Should be >= 1 game.
+    TOURNAMENT_LENGTH : 10,  // Should be >= 1 game.
 
     // MCTS-UCT
-    SEARCH_TIME : 10000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
+    SEARCH_TIME : 1000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
     MAX_ITERATIONS : Number.MAX_VALUE,  // If using break points, set this, not time. For one second, try 3-4 million.
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where zero is greedy.
 
@@ -23,9 +23,7 @@ export const SETUP = {
         Specifically, change the PLAYER_MULTIPLIER and possibly the search for max / min child.
     */
     REWARD : {
-        PLAYER1_TIE :  0.5,
-        PLAYER2_TIE : -0.5,
-        PLAYER1_WIN :  1,
-        PLAYER2_WIN : -1
+        TIE :  0.5,
+        WIN :  1
     }
 }

@@ -17,25 +17,13 @@ export function SelectNode(root)
         {
             if (child.visitCount > 0)
             {
-                const PLAYER_MULTIPLIER = child.parent.isPlayer1? 1 : -1;
                 const UCB_SCORE = ( 
-                    ((child.sumValue * PLAYER_MULTIPLIER) / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(selectedNode.visitCount) / child.visitCount ) )
+                    (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(child.parent.visitCount) / child.visitCount ) )
                     );
-                if (child.parent.isPlayer1)
+                if (UCB_SCORE > bestUCB)
                 {
-                    if (UCB_SCORE > bestUCB)
-                    {
-                        bestUCB = UCB_SCORE;
-                        bestChild = child;
-                    }
-                }
-                else
-                {
-                    if (UCB_SCORE < bestUCB)
-                    {
-                        bestUCB = UCB_SCORE;
-                        bestChild = child;
-                    }
+                    bestUCB = UCB_SCORE;
+                    bestChild = child;
                 }
             }
         }
@@ -67,3 +55,23 @@ Note: to avoid division by 0 error, visitCount > zero is required.
 It also helps the formula work, to get at least some data from each node.
 
 */ 
+
+
+
+            // const PLAYER_MULTIPLIER = child.parent.isPlayer1? 1 : 1;  // /* PLAYER_MULTIPLIER   
+            //     if (child.parent.isPlayer1)
+            //     {
+            //         if (UCB_SCORE > bestUCB)
+            //         {
+            //             bestUCB = UCB_SCORE;
+            //             bestChild = child;
+            //         }
+            //     }
+            //     else
+            //     {
+            //         if (UCB_SCORE < bestUCB)
+            //         {
+            //             bestUCB = UCB_SCORE;
+            //             bestChild = child;
+            //         }
+            //     }
