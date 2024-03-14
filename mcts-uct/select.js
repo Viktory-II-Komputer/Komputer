@@ -55,23 +55,3 @@ Note: to avoid division by 0 error, visitCount > zero is required.
 It also helps the formula work, to get at least some data from each node.
 
 */ 
-
-
-
-            // const PLAYER_MULTIPLIER = child.parent.isPlayer1? 1 : 1;  // /* PLAYER_MULTIPLIER   
-            //     if (child.parent.isPlayer1)
-            //     {
-            //         if (UCB_SCORE > bestUCB)
-            //         {
-            //             bestUCB = UCB_SCORE;
-            //             bestChild = child;
-            //         }
-            //     }
-            //     else
-            //     {
-            //         if (UCB_SCORE < bestUCB)
-            //         {
-            //             bestUCB = UCB_SCORE;
-            //             bestChild = child;
-            //         }
-            //     }

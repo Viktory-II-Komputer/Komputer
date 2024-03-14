@@ -3,12 +3,12 @@
 export const SETUP = {
 
     // Tournament
-    AGENT_0 : "Random",  // Agent who plays the first game first. Use MCTS-UCT or Random.
-    AGENT_1 : "MCTS-UCT", 
+    AGENT_0 : "MCTS-UCT",  // Agent who plays the first game first. Use MCTS-UCT or Random.
+    AGENT_1 : "Random", 
     GAME_TO_PLAY : "TicTacToe",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : false,  // Per game, swap who plays first.
     MAX_TURNS_PER_GAME : 200,
-    TOURNAMENT_LENGTH : 10,  // Should be >= 1 game.
+    TOURNAMENT_LENGTH : 1,  // Should be >= 1 game.
 
     // MCTS-UCT
     SEARCH_TIME : 1000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
@@ -16,14 +16,10 @@ export const SETUP = {
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where zero is greedy.
 
     /*  Rewards to Select, Simulate, and Expand.
-
-        Currently, only the tie reward should be modified.
-        The Select function expects Player2 to get a negative reward for a win.
-        Changing Player2's sign or relative size requires modifying the Select function.
-        Specifically, change the PLAYER_MULTIPLIER and possibly the search for max / min child.
+        Expects positive numbers.
     */
     REWARD : {
-        TIE :  0.5,
-        WIN :  1
+        TIE :  1,
+        WIN :  2
     }
 }

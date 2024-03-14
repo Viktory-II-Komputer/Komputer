@@ -5,6 +5,8 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 import { SETUP } from "../setup.js";
+import { TicTacToeRules } from "../tictactoe.js";
+import { CheckersRules } from "../checkers.js";
 
 const SEARCH_TIME = SETUP.SEARCH_TIME;
 const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;
@@ -13,21 +15,21 @@ export class MCTS_UCT_Logic
 {
     constructor()
     {
-        this.game = null;
-        this.rootNode = null;
         this.endSearchTime = null;
+        this.rootNode = null;
+        this.rules = null; 
     }
 
     init(game, isPlayer1)
     {
         this.endSearchTime = (Date.now() + SEARCH_TIME);
         this.rootNode = new Node(game.board, isPlayer1);
-        this.game = game;
-        Expand(this.rootNode, this.game);
-        // For each immediate child of root, simulate once.
+        this.rules = this.getSimulationRules(game);
+
+        this.fullyExpand(game.rules.nextPossibleBoards);
         for (let child of this.rootNode.children.keys())
         {
-            const RESULT = Simulate(child, this.game);
+            const RESULT = Simulate(child, this.rules);
             Backpropagate(child, RESULT);
         }
     }
@@ -36,13 +38,13 @@ export class MCTS_UCT_Logic
     {
         while (this.isTimeToThink() && (this.rootNode.visitCount < MAX_ITERATIONS))
         {
-            let nodeToVisit = SelectNode(this.rootNode);
-            Expand(nodeToVisit, this.game);
-            for (let child of nodeToVisit.children.keys())
+            const NODE_TO_VISIT = SelectNode(this.rootNode);
+            Expand(NODE_TO_VISIT, this.rules);
+            for (let child of NODE_TO_VISIT.children.keys())
             {
                 if (child.visitCount === 0)
                 {
-                    const RESULT = Simulate(child, this.game);
+                    const RESULT = Simulate(child, this.rules);
                     Backpropagate(child, RESULT);
                     break;
                 }
@@ -70,5 +72,31 @@ export class MCTS_UCT_Logic
             }
         }
         return bestChild.board;
+    }
+
+    getSimulationRules(game)
+    {
+        let rules = null;
+        switch(game.name)
+        {
+            case "tictactoe":
+                rules = new TicTacToeRules();
+                break;
+            case "checkers":
+                rules = new CheckersRules();
+                break;
+            default:
+                console.error("Error: invalid game passed to MCTS for simulation.")
+                break;
+        }
+        return rules;
+    }
+
+    fullyExpand(nextPossibleBoards)
+    {
+        for (const BOARD of nextPossibleBoards)
+        {
+            this.rootNode.children.set(new Node(BOARD, !this.rootNode.isPlayer1, 0, 0, this.rootNode, null));
+        }
     }
 }

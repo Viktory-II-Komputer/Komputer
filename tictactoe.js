@@ -26,7 +26,11 @@ export class TicTacToeRules
 
     hasGeneratedNextPossibleStates(board, isPlayer1)
     {
-        if (this.wasWon(board, isPlayer1))
+        // Clear winner from any previous game / simulation.
+        this.winner.logName = null;
+        this.winner.isPlayer1 = null;
+
+        if (this.isWon(board, isPlayer1))
         {
             // Whoever played last won.
             // So the winner is the opposite.
@@ -72,7 +76,7 @@ export class TicTacToeRules
     }
 
     // Check if whoever played last won.
-    wasWon(board, isPlayer1)
+    isWon(board, isPlayer1)
     {
         let opponentMark = isPlayer1? player2Mark : player1Mark;
         return (

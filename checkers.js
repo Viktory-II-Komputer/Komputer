@@ -70,8 +70,10 @@ export class CheckersRules
 
     hasGeneratedNextPossibleStates(board, isPlayer1)
      {
-        // Clear boards from the previous turn.
+        // Clear data from any prior game / simulation.
         this.nextPossibleBoards = [];
+        this.winner.isPlayer1 = null;
+        this.winner.logName = null;
 
         let playerPawn = isPlayer1 ? MAN : WOMAN;
         let playerRoyal = isPlayer1 ? KING : QUEEN;
