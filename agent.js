@@ -39,12 +39,13 @@ export class Agent
     continue(turnNumberToLog)
     {
         this.game.hasNextState = this.game.rules.hasGeneratedNextPossibleStates(this.game.board, this.isPlayer1);
-        if (this.game.rules.winner.isPlayer1 !== null)  // Check for winner.
+
+        if (this.game.hasWinner()) 
         {
             this.game.isDone = true;
             console.log('Game won by Player %s.', this.game.rules.winner.logName);
         }
-        else if(!this.game.hasNextState)
+        else if(this.game.isOver())  // Game is a tie.
         {
             this.game.isDone = true;
             console.log("Game over.");
@@ -74,4 +75,3 @@ export class Agent
         }
     }
 }  // End class
-

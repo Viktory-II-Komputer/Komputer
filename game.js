@@ -29,7 +29,7 @@ export class Game
         }
     }
  
-    /// Console logs board from top (index 0) to bottom.
+    /// Console log board from top (index 0) to bottom.
     logBoard()
     {
         console.log("= = = = =");
@@ -53,5 +53,15 @@ export class Game
             console.log(textRow.join(""));
             textRow = [];
         }
+    }
+
+    hasWinner()
+    {
+        return this.rules.winner.isPlayer1 !== null;
+    }
+
+    isOver()
+    {
+        return !this.hasNextState;
     }
 }

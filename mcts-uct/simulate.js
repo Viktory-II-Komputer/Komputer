@@ -1,5 +1,3 @@
-import { CheckersRules } from "../checkers.js";
-import { TicTacToeRules } from "../tictactoe.js";
 import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 

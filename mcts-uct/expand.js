@@ -1,5 +1,3 @@
-import { CheckersRules } from "../checkers.js";
-import { TicTacToeRules } from "../tictactoe.js";
 import { Node } from "./node.js";
 import { Backpropagate } from "./backpropagate.js";
 import { SETUP } from "../setup.js";
