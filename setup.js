@@ -15,7 +15,7 @@ export const SETUP = {
     MAX_ITERATIONS : Number.MAX_VALUE,  // If using break points, set this, not time. For one second, try 3-4 million.
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where zero is greedy.
 
-    /*  Rewards to Select and Expand.
+    /*  Rewards to Simulate and Expand.
         Expects positive numbers.
     */
     REWARD : {
