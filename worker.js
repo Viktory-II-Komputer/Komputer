@@ -7,10 +7,11 @@ const MAX_GAME_COUNT = SETUP.TOURNAMENT_LENGTH;
 const SHOULD_ALTERNATE_PLAY_ORDER = SETUP.SHOULD_ALTERNATE_PLAY_ORDER;
 
 // Initialization 
-let game = getNewGame();
+let game = new Game(SETUP.GAME_TO_PLAY);
 let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)]
 agents[0].begin(game);
 agents[1].begin(game, false);
+updateDisplay();
 
 // Tournament Loop
 const LAST_GAME_COUNT = MAX_GAME_COUNT - 1;
@@ -62,6 +63,11 @@ console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
 
 /// End worker script.
 /// Helper functions below.
+
+function updateDisplay()
+{
+    self.postMessage("A message from my worker.");
+}
 
 function getNewGame()
 {
