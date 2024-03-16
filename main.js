@@ -4,7 +4,7 @@ if (window.Worker) {
     console.log("Worker created.");
 
     // Listener to receive worker messages.
-    onMessage = function(event) 
+    const onMessage = function(event) 
     {
         // event.data has whatever was passed from the worker.
         // We can update the front-end from this data here.
@@ -16,7 +16,7 @@ if (window.Worker) {
     // Note that only copies of native values or data object literals can be sent. 
     // So a class instance sent (not recommended) would be converted to a generic data object, losing type & methods.
     // Likely, we'll want to send messages to change setup values and to trigger starting.
-    worker.postMessage();
+    worker.postMessage(null);
 }
 else
 {
