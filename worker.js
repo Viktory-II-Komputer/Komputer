@@ -1,6 +1,6 @@
 import { Agent } from './agent.js';
 import { Game } from './game.js';
-import { SETUP } from "../setup.js";
+import { SETUP } from "./setup.js";
 
 const MAX_TURN = SETUP.MAX_TURNS_PER_GAME;
 const MAX_GAME_COUNT = SETUP.TOURNAMENT_LENGTH;
@@ -66,7 +66,7 @@ console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
 
 function updateDisplay()
 {
-    self.postMessage("A message from my worker.");
+    self.postMessage("A message from the worker.");
 }
 
 function getNewGame()

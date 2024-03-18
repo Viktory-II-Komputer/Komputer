@@ -1,3 +1,4 @@
+import { MCTS_UCT_Depth_Memory_Logic } from "./mcts-uct-depth-mem/mcts_utc_depth_mem.js";
 import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
 import { GetRandomNextBoard } from "./random.js";
 
@@ -15,8 +16,11 @@ export class Agent
             case "mcts-uct":
                 this.logic = new MCTS_UCT_Logic();
                 break;
+            case "mcts-uct-depth-memory":
+                this.logic = new MCTS_UCT_Depth_Memory_Logic();
+                break;
             default:
-                console.error("Error: invalid agent.");
+                console.error("Error: invalid agent name passed to Agent constructor.");
                 break;
         }
         this.game = null;
@@ -69,8 +73,12 @@ export class Agent
                 this.logic.init(this.game, this.isPlayer1);
                 this.game.board = this.logic.getNextState();
                 break;
+            case "mcts-uct-depth-memory":
+                this.logic.init(this.game, this.isPlayer1);
+                this.game.board = this.logic.getNextState();
+                break;
             default:
-                console.error("Error: invalid agent.");
+                console.error("Error: invalid agent name used to choose next state.");
                 break;
         }
     }

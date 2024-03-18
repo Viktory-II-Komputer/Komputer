@@ -2,7 +2,7 @@
 // Setup, initialize front-end here.
 
 if (window.Worker) {
-    const worker = new Worker("worker.js", {type: "module"});
+    var worker = new Worker("worker.js", {type: "module"});
 
     // Listener to receive worker messages.
     // event.data has whatever is passed from the worker.
