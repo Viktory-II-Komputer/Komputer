@@ -96,7 +96,7 @@ export class MCTS_UCT_Logic
     {
         for (const BOARD of nextPossibleBoards)
         {
-            this.rootNode.children.set(new Node(BOARD, !this.rootNode.isPlayer1, 0, 0, this.rootNode, null));
+            this.rootNode.children.add(new Node(BOARD, !this.rootNode.isPlayer1, 0, 0, this.rootNode, null));
         }
     }
 }

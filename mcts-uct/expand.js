@@ -11,7 +11,7 @@ export function Expand(node, rules)
     {
         for (const NEXT_BOARD of rules.nextPossibleBoards)
         {
-            node.children.set(new Node(NEXT_BOARD, !node.isPlayer1, 0, 0, node, null))
+            node.children.add(new Node(NEXT_BOARD, !node.isPlayer1, 0, 0, node, null))
         }
     }
     // When node is a leaf (game in terminal state), check result and update tree.

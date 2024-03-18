@@ -8,12 +8,11 @@ export class Node
         this.visitCount = visitCount;
         this.sumValue = sumValue;
         this.parent = parent;
-        this.children = new Map(children);
+        this.children = new Set(children);
     }
 
     clone()
     {
-        let clone = new Node(this.board, this.isPlayer1, this.visitCount, this.sumValue, this.parent, this.children);
-        return clone;
+        return (new Node(this.board, this.isPlayer1, this.visitCount, this.sumValue, this.parent, this.children));
     }
 }
