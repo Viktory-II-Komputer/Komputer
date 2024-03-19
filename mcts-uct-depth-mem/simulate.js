@@ -1,6 +1,8 @@
 import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 
+const DEPTH_LIMIT = SETUP.SIMULATION_DEPTH_LIMIT;
+
 export function Simulate(child, rules)
 {
     let result = 0;
@@ -22,6 +24,7 @@ export function Simulate(child, rules)
 function getisPlayer1Winner(board, isPlayer1, rules)
 {
     // Game loop for sim
+    let depth = 0;
     while(true)
     {
         const HAS_NEXT_STATE = rules.hasGeneratedNextPossibleStates(board, isPlayer1);
@@ -36,11 +39,17 @@ function getisPlayer1Winner(board, isPlayer1, rules)
         {
             return null;
         }
-        // Continue game.
-        else
+        // Maybe continue.
+        else if (depth < DEPTH_LIMIT)
         {
             board = GetRandomNextBoard(rules);
             isPlayer1 = !isPlayer1;
+            depth++;
+        }
+        // Guess result.
+        else 
+        {
+            return rules.willPlayer1Win(board, isPlayer1);
         }
     }
 }

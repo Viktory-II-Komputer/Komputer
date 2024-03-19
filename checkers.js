@@ -553,4 +553,43 @@ export class CheckersRules
         return textRow;
     }
 
+    /// Predicts the game result.
+    /// A material advantage of 1 royal or at least 2 pawns predicts a Win, otherwise a Tie.
+    /// Returns true for player1 win, false for loss, or null for tie.
+    willPlayer1Win(board, isPlayer1)
+    {
+        const ACTIVE_PAWN = isPlayer1? MAN : WOMAN;
+        const ACTIVE_ROYAL = isPlayer1? KING : QUEEN;
+        const OPPONENT_PAWN = isPlayer1? WOMAN : MAN;
+        const OPPONENT_ROYAL = isPlayer1? QUEEN : KING;
+
+        let activePawnCount = 0;
+        let activeRoyalCount = 0;
+        let opponentPawnCount = 0;
+        let opponentRoyalCount = 0;
+
+        // Count each piece type on board.
+        for (let i = 0; i < BOARD_CELL_COUNT; i++)
+        {
+            if (board[i] === ACTIVE_PAWN)
+                activePawnCount++;
+            else if (board[i] === ACTIVE_ROYAL)
+                activeRoyalCount++;
+            else if (board[i] === OPPONENT_PAWN)
+                opponentPawnCount++;
+            else if (board[i] === OPPONENT_ROYAL)
+                opponentRoyalCount++;
+        }
+    
+        const PAWN_VALUE = 2;
+        const ROYAL_VALUE = 3;
+        const ACTIVE_PLAYER_SCORE = (PAWN_VALUE * activePawnCount) + (ROYAL_VALUE * activeRoyalCount);
+        const OPPONENT_SCORE = (PAWN_VALUE * opponentPawnCount) + (ROYAL_VALUE * opponentRoyalCount);
+        if (ACTIVE_PLAYER_SCORE > OPPONENT_SCORE + PAWN_VALUE)
+            return ( isPlayer1? true : false );
+        else if (OPPONENT_SCORE > ACTIVE_PLAYER_SCORE + PAWN_VALUE)
+            return ( isPlayer1? false : true);
+        return null;
+    }
+
 } // End class 

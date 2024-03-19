@@ -89,4 +89,12 @@ export class TicTacToeRules
             ((board[0] ===   opponentMark) && (board[4] ===   opponentMark) && (board[8] ===   opponentMark)) || // Diagonal down
             ((board[2] ===   opponentMark) && (board[4] ===   opponentMark) && (board[6] ===   opponentMark)));  // Diagonal up
     }
+
+    /// Interface to predict the winner.
+    /// Returns null, indicating a tie. 
+    /// Don't expect to use this, but a severely depth-limited agent might call it. 
+    willPlayer1Win(board, isPlayer1)
+    {
+        return null;
+    }
 }

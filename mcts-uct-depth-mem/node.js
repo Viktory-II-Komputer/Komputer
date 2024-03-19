@@ -9,7 +9,7 @@ export class Node
         this.visitCount = visitCount;
         this.sumValue = sumValue;
         this.parent = parent;
-        this.children = new Children(childrenToClone); 
+        this.children = new Children(childrenToClone, (parent === null)? true : false); 
     }
 
     clone()
