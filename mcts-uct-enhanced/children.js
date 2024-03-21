@@ -21,10 +21,9 @@ export class Children
     {
         if (!this.cache.has(key)) return undefined;
 
-        const child = key;
         this.cache.delete(key);
-        this.cache.add(child);
-        return child;
+        this.cache.add(key);
+        return key;
     }
 
     put(key) 

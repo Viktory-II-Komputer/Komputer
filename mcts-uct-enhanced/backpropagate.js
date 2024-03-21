@@ -1,8 +1,8 @@
 
 export function Backpropagate(node, result)
-{
+{   
     const simulatedNode = node;
-
+    
     // Update all ancestors who match the simulated node by player, ending after root is updated.
     while(node.parent !== null)
     {

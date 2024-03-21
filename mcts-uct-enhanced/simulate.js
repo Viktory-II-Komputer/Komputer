@@ -6,7 +6,7 @@ const DEPTH_LIMIT = SETUP.SIMULATION_DEPTH_LIMIT;
 export function Simulate(child, rules)
 {
     let result = 0;
-    const IS_PLAYER1_WINNER = getisPlayer1Winner(child.board, child.isPlayer1, rules);
+    const IS_PLAYER1_WINNER = getIsPlayer1Winner(child.board, child.isPlayer1, rules);
     if (IS_PLAYER1_WINNER === null)
     {
         result = SETUP.REWARD.TIE;
@@ -21,7 +21,7 @@ export function Simulate(child, rules)
 }
 
 ///  Returns true for player1 win or false for loss, null if none. 
-function getisPlayer1Winner(board, isPlayer1, rules)
+function getIsPlayer1Winner(board, isPlayer1, rules)
 {
     // Game loop for sim
     let depth = 0;

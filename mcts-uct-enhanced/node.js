@@ -2,7 +2,7 @@ import { Children } from "./children.js";
 
 export class Node
 {
-    constructor(board, isPlayer1, visitCount = 0, sumValue = 0, parent = null, childrenToClone = null)
+    constructor(board, isPlayer1, visitCount = 0, sumValue = 0, parent = null, childrenToClone = null, isProvenWinner = false)
     {
         this.board = board;
         this.isPlayer1 = isPlayer1;
@@ -10,10 +10,11 @@ export class Node
         this.sumValue = sumValue;
         this.parent = parent;
         this.children = new Children(childrenToClone, (parent === null)? true : false); 
+        this.isProvenWinner = isProvenWinner;
     }
 
     clone()
     {
-        return (new Node(this.board, this.isPlayer1, this.visitCount, this.sumValue, this.parent, this.children));
+        return (new Node(this.board, this.isPlayer1, this.visitCount, this.sumValue, this.parent, this.children, this.isProvenWinner));
     }
 }

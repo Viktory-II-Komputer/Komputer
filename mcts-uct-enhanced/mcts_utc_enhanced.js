@@ -10,7 +10,7 @@ import { CheckersRules } from "../checkers.js";
 const SEARCH_TIME = SETUP.SEARCH_TIME;
 const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;
 
-export class MCTS_UCT_Depth_Memory_Logic
+export class MCTS_UCT_Enhanced_Logic
 {
     constructor()
     {
@@ -25,7 +25,7 @@ export class MCTS_UCT_Depth_Memory_Logic
         this.rootNode = new Node(game.board, isPlayer1);
         this.rules = this.getSimulationRules(game);
 
-        this.fullyExpand(game.rules.nextPossibleBoards);
+        this.expandRoot(game.rules.nextPossibleBoards);
         for (let child of this.rootNode.children.cache.keys())
         {
             const RESULT = Simulate(child, this.rules);
@@ -35,28 +35,39 @@ export class MCTS_UCT_Depth_Memory_Logic
 
     getNextState()
     {
-        while (this.isTimeToThink() && (this.rootNode.visitCount < MAX_ITERATIONS))
+        while (this.hasTimeToThink() && this.hasMoreIterations())
         {
-            const NODE_TO_VISIT = SelectNode(this.rootNode);
-            Expand(NODE_TO_VISIT, this.rules);
-            for (let child of NODE_TO_VISIT.children.cache.keys())
+            const [NODE_TO_VISIT, IS_WITHIN_DEPTH_LIMIT] = SelectNode(this.rootNode, this.rules);
+            if (IS_WITHIN_DEPTH_LIMIT)
             {
-                if (child.visitCount === 0)
+                Expand(NODE_TO_VISIT, this.rules);
+                // Get first child via LRU children getter, which moves child to end, cycling who gets simulated next visit.
+                for (let child of NODE_TO_VISIT.children.cache.keys())
                 {
-                    // Use LRU children getter to avoid checking this node next time.
                     const CHILD_TO_SIM = NODE_TO_VISIT.children.get(child);  
                     const RESULT = Simulate(CHILD_TO_SIM, this.rules);
                     Backpropagate(CHILD_TO_SIM, RESULT);
                     break;
                 }
             }
+            else
+            {
+                // At tree depth limit, just simulate the node.
+                const RESULT = Simulate(NODE_TO_VISIT, this.rules);
+                Backpropagate(NODE_TO_VISIT, RESULT);
+            }
         }
         return this.getBest();
     }
 
-    isTimeToThink()
+    hasTimeToThink()
     {
         return (Date.now() < this.endSearchTime);
+    }
+
+    hasMoreIterations()
+    {
+        return (this.rootNode.visitCount < MAX_ITERATIONS);
     }
 
     getBest()
@@ -66,6 +77,11 @@ export class MCTS_UCT_Depth_Memory_Logic
 
         for (let child of this.rootNode.children.cache.keys())
         {
+            if (child.isProvenWinner === true)
+            {
+                bestChild = child;
+                break;
+            }
             if (child.visitCount > bestVisitCount)
             {
                 bestVisitCount = child.visitCount;
@@ -93,11 +109,11 @@ export class MCTS_UCT_Depth_Memory_Logic
         return rules;
     }
 
-    fullyExpand(nextPossibleBoards)
+    expandRoot(nextPossibleBoards)
     {
         for (const BOARD of nextPossibleBoards)
         {
-            this.rootNode.children.put(new Node(BOARD, !this.rootNode.isPlayer1, 0, 0, this.rootNode, null));
+            this.rootNode.children.put(new Node(BOARD, !this.rootNode.isPlayer1, 0, 0, this.rootNode));
         }
     }
 }

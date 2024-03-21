@@ -1,4 +1,4 @@
-import { MCTS_UCT_Depth_Memory_Logic } from "./mcts-uct-depth-mem/mcts_utc_depth_mem.js";
+import { MCTS_UCT_Enhanced_Logic } from "./mcts-uct-enhanced/mcts_utc_enhanced.js";
 import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
 import { GetRandomNextBoard } from "./random.js";
 
@@ -16,8 +16,8 @@ export class Agent
             case "mcts-uct":
                 this.logic = new MCTS_UCT_Logic();
                 break;
-            case "mcts-uct-depth-memory":
-                this.logic = new MCTS_UCT_Depth_Memory_Logic();
+            case "mcts-uct-enhanced":
+                this.logic = new MCTS_UCT_Enhanced_Logic();
                 break;
             default:
                 console.error("Error: invalid agent name passed to Agent constructor.");
@@ -70,10 +70,12 @@ export class Agent
                 this.game.board = GetRandomNextBoard(this.game.rules);
                 break;
             case "mcts-uct":
+                console.log(`%s is thinking.`, this.logName);
                 this.logic.init(this.game, this.isPlayer1);
                 this.game.board = this.logic.getNextState();
                 break;
-            case "mcts-uct-depth-memory":
+            case "mcts-uct-enhanced":
+                console.log(`%s is thinking.`, this.logName);
                 this.logic.init(this.game, this.isPlayer1);
                 this.game.board = this.logic.getNextState();
                 break;

@@ -3,13 +3,14 @@ import { SETUP } from "../setup.js";
 const DEPTH_LIMIT = SETUP.TREE_DEPTH_LIMIT; 
 const UCB_C = SETUP.UCB_FORMULA_CONSTANT; 
 
-/// Return descendent child key with max UCB value.
-export function SelectNode(root)
+/// Returns best child of root and true if should be expanded, 
+/// or false if not, due to depth limit.
+export function SelectNode(root, rules)
 {
+    let depth = 0;
     let bestUCB = 0;
     let bestChild = null;
     let selectedNode = root.clone();
-    let depth = 0;
 
     // If the selected node has children, find the best descendant.
     while (depth < DEPTH_LIMIT && selectedNode.children.cache.size > 0)
@@ -18,8 +19,9 @@ export function SelectNode(root)
         {
             if (child.visitCount > 0)
             {
+                // Use UCB1 formula to find best node.
                 const UCB_SCORE = ( 
-                    (child.sumValue / child.visitCount) + ( UCB_C * Math.sqrt( Math.log(child.parent.visitCount) / child.visitCount ) )
+                    (child.sumValue / child.visitCount) + (UCB_C * Math.sqrt( Math.log(child.parent.visitCount) / child.visitCount ) )
                     );
                 if (UCB_SCORE > bestUCB)
                 {                    
@@ -29,12 +31,12 @@ export function SelectNode(root)
             }
         }
         // Continue search under best child, and use the LRU children getter, to record using this child.
-        selectedNode = bestChild? selectedNode.children.get(bestChild) : selectedNode.children.cache.keys().next().value; // For random play, see note below. 
+        selectedNode = bestChild? selectedNode.children.get(bestChild) : selectedNode.children.cache.keys().next().value; 
         bestUCB = 0;
         bestChild = null;
         depth++;
     }
-    return selectedNode;
+    return ( depth < DEPTH_LIMIT? [selectedNode, true] : [selectedNode, false] );
 }
 
 /*
@@ -57,6 +59,3 @@ Note: to avoid division by 0 error, visitCount > zero is required.
 It also helps the formula work, to get at least some data from each node.
 
 */ 
-
-// Random play when no best child may be best for low-branching games. 
-// Use: GetRandomKey(selectedNode.children.cache);
