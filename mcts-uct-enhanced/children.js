@@ -43,7 +43,7 @@ function initCapacity (depth)
 {
   if (depth === 1)
   {
-    return SETUP.NODE_DEPTH_1_CHILD_CAPACITY;
+    return SETUP.ROOT_DEPTH_1_CHILD_CAPACITY;
   }
   else if (depth === 2)
   {
