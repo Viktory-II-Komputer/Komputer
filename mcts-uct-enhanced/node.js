@@ -9,7 +9,8 @@ export class Node
         this.visitCount = visitCount;
         this.sumValue = sumValue;
         this.parent = parent;
-        this.children = new Children(childrenToClone, (parent === null)? true : false); 
+        this.depth = (parent === null) ? 0 : parent.depth + 1;
+        this.children = new Children(this.depth + 1, childrenToClone); 
         this.isProvenWinner = isProvenWinner;
     }
 

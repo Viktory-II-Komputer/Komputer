@@ -11,10 +11,10 @@ Source: https://dev.to/seanwelshbrown/implement-a-simple-lru-cache-in-javascript
 
 export class Children 
 {
-    constructor(childrenToClone = null, isParentRoot = false)
+    constructor(depth, childrenToClone = null)
     {
       this.cache = childrenToClone ? new Set(childrenToClone.cache) : new Set();
-      this.capacity = isParentRoot ? SETUP.ROOT_CHILDREN_CAPACITY : SETUP.NODE_CHILDREN_CAPACITY;
+      this.capacity = initCapacity(depth);
     }
 
     get(key) 
@@ -38,3 +38,19 @@ export class Children
         }
     }
 }
+
+function initCapacity (depth)
+{
+  if (depth === 1)
+  {
+    return SETUP.NODE_DEPTH_1_CHILD_CAPACITY;
+  }
+  else if (depth === 2)
+  {
+    return SETUP.NODE_DEPTH_2_CHILD_CAPACITY;
+  }
+  else
+  {
+    return SETUP.NODE_GENERAL_CHILD_CAPACITY;
+  }
+} 

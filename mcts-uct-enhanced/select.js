@@ -5,15 +5,14 @@ const UCB_C = SETUP.UCB_FORMULA_CONSTANT;
 
 /// Returns best child of root and true if should be expanded, 
 /// or false if not, due to depth limit.
-export function SelectNode(root, rules)
+export function SelectNode(root)
 {
-    let depth = 0;
     let bestUCB = 0;
     let bestChild = null;
     let selectedNode = root.clone();
 
     // If the selected node has children, find the best descendant.
-    while (depth < DEPTH_LIMIT && selectedNode.children.cache.size > 0)
+    while (selectedNode.depth < DEPTH_LIMIT && selectedNode.children.cache.size > 0)
     {
         for (let child of selectedNode.children.cache.keys())
         {
@@ -34,9 +33,8 @@ export function SelectNode(root, rules)
         selectedNode = bestChild? selectedNode.children.get(bestChild) : selectedNode.children.cache.keys().next().value; 
         bestUCB = 0;
         bestChild = null;
-        depth++;
     }
-    return ( depth < DEPTH_LIMIT? [selectedNode, true] : [selectedNode, false] );
+    return selectedNode;
 }
 
 /*

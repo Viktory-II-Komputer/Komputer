@@ -553,8 +553,9 @@ export class CheckersRules
         return textRow;
     }
 
-    /// Predicts the game result.
-    /// A material advantage of 1 royal or at least 2 pawns predicts a Win, otherwise a Tie.
+    /// Predicts the game result, based on piece points.
+    /// Given pawns are worth 2 points, royals worth 3,
+    /// An advantage of more than 2 points predicts a Win, otherwise a Tie.
     /// Returns true for player1 win, false for loss, or null for tie.
     willPlayer1Win(board, isPlayer1)
     {

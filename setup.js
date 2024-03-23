@@ -6,7 +6,7 @@ export const SETUP = {
     AGENT_0 : "MCTS-UCT-ENHANCED", // Use Random, MCTS-UCT, or MCTS-UCT-ENHANCED
     AGENT_1 : "MCTS-UCT", 
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
-    SHOULD_ALTERNATE_PLAY_ORDER : true,  // Per game, swap who plays first.
+    SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
     TOURNAMENT_LENGTH : 20,  // Should be >= 1 game.
 
@@ -16,14 +16,15 @@ export const SETUP = {
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where 0 is greedy.
     
     // MCTS-UCT Enhanced: Depth-Limited Evaluation & Tree Size Limits
-    TREE_DEPTH_LIMIT: 12, 
-    SIMULATION_DEPTH_LIMIT: 4, // Research says for many board games, 4-8 is ideal. 
-    ROOT_CHILDREN_CAPACITY: 64, // Depth 1 children
-    NODE_CHILDREN_CAPACITY: 8, // Depth 2 or greater 
+    TREE_DEPTH_LIMIT: 18, 
+    SIMULATION_DEPTH_LIMIT: 4, // Research says for many games, 4-8 is ideal. 
+    ROOT_DEPTH_1_CHILD_CAPACITY: 64, 
+    NODE_DEPTH_2_CHILD_CAPACITY: 8,
+    NODE_GENERAL_CHILD_CAPACITY: 8,  
 
     // Rewards expects positive numbers.
     REWARD : {
         TIE :  1,
-        WIN :  2,
+        WIN :  2
     }
 }

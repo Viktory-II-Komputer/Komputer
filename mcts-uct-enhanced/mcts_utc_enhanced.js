@@ -9,6 +9,7 @@ import { CheckersRules } from "../checkers.js";
 
 const SEARCH_TIME = SETUP.SEARCH_TIME;
 const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;
+const DEPTH_LIMIT = SETUP.TREE_DEPTH_LIMIT;
 
 export class MCTS_UCT_Enhanced_Logic
 {
@@ -26,10 +27,10 @@ export class MCTS_UCT_Enhanced_Logic
         this.rules = this.getSimulationRules(game);
 
         this.expandRoot(game.rules.nextPossibleBoards);
-        for (let child of this.rootNode.children.cache.keys())
+        for (const CHILD of this.rootNode.children.cache.keys())
         {
-            const RESULT = Simulate(child, this.rules);
-            Backpropagate(child, RESULT);
+            const RESULT = Simulate(CHILD, this.rules);
+            Backpropagate(CHILD, RESULT);
         }
     }
 
@@ -37,8 +38,8 @@ export class MCTS_UCT_Enhanced_Logic
     {
         while (this.hasTimeToThink() && this.hasMoreIterations())
         {
-            const [NODE_TO_VISIT, IS_WITHIN_DEPTH_LIMIT] = SelectNode(this.rootNode, this.rules);
-            if (IS_WITHIN_DEPTH_LIMIT)
+            const NODE_TO_VISIT = SelectNode(this.rootNode);
+            if (NODE_TO_VISIT.depth < DEPTH_LIMIT)
             {
                 Expand(NODE_TO_VISIT, this.rules);
                 // Get first child via LRU children getter, which moves child to end, cycling who gets simulated next visit.
@@ -75,17 +76,17 @@ export class MCTS_UCT_Enhanced_Logic
         let bestChild = null;
         let bestVisitCount = 0;
 
-        for (let child of this.rootNode.children.cache.keys())
+        for (const CHILD of this.rootNode.children.cache.keys())
         {
-            if (child.isProvenWinner === true)
+            if (CHILD.isProvenWinner === true)
             {
-                bestChild = child;
+                bestChild = CHILD;
                 break;
             }
-            if (child.visitCount > bestVisitCount)
+            if (CHILD.visitCount > bestVisitCount)
             {
-                bestVisitCount = child.visitCount;
-                bestChild = child;
+                bestVisitCount = CHILD.visitCount;
+                bestChild = CHILD;
             }
         }
         return bestChild.board;
