@@ -3,8 +3,6 @@ import { SETUP } from "../setup.js";
 const DEPTH_LIMIT = SETUP.TREE_DEPTH_LIMIT; 
 const UCB_C = SETUP.UCB_FORMULA_CONSTANT; 
 
-/// Returns best child of root and true if should be expanded, 
-/// or false if not, due to depth limit.
 export function SelectNode(root)
 {
     let bestUCB = 0;
