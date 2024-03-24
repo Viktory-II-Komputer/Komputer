@@ -8,7 +8,7 @@ export const SETUP = {
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
-    TOURNAMENT_LENGTH : 20,  // Should be >= 1 game.
+    TOURNAMENT_LENGTH : 100,  // Should be >= 1 game.
 
     // MCTS-UCT
     SEARCH_TIME : 5000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.

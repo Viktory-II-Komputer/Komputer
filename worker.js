@@ -43,6 +43,9 @@ for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
     // If not last game, reset.
     if (gameCount !== LAST_GAME_COUNT)
     {
+        console.log("Tournament update:");
+        console.log(`%s wins: %s`, agents[0].logName, agents[0].winCount);
+        console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
         game = getNewGame();
         if (SHOULD_ALTERNATE_PLAY_ORDER)
         {
@@ -54,9 +57,6 @@ for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
             agents[0].begin(game);
             agents[1].begin(game, false);
         }
-        console.log("Tournament update:");
-        console.log(`%s wins: %s`, agents[0].logName, agents[0].winCount);
-        console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
     }
 }
 
