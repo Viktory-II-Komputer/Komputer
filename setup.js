@@ -3,12 +3,12 @@
 export const SETUP = {
 
     // Tournament
-    AGENT_0 : "MCTS-PUCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, or MCTS-PUCT
+    AGENT_0 : "MCTS-UCT-ENHANCED", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, or MCTS-PUCT
     AGENT_1 : "MCTS-UCT", 
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
-    TOURNAMENT_LENGTH : 10,  // Should be >= 1 game.
+    TOURNAMENT_LENGTH : 40,  // Should be >= 1 game.
 
     // MCTS-UCT
     SEARCH_TIME : 5000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
