@@ -1,3 +1,4 @@
+import { MCTS_PUCT_Logic } from "./mcts-puct/mcts_putc.js";
 import { MCTS_UCT_Enhanced_Logic } from "./mcts-uct-enhanced/mcts_utc_enhanced.js";
 import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
 import { GetRandomNextBoard } from "./random.js";
@@ -18,6 +19,9 @@ export class Agent
                 break;
             case "mcts-uct-enhanced":
                 this.logic = new MCTS_UCT_Enhanced_Logic();
+                break;
+            case "mcts-puct":
+                this.logic = new MCTS_PUCT_Logic();
                 break;
             default:
                 console.error("Error: invalid agent name passed to Agent constructor.");
@@ -64,24 +68,15 @@ export class Agent
 
     chooseNextState()
     {
-        switch(this.name)
+        if (this.name === "random")
         {
-            case "random":
-                this.game.board = GetRandomNextBoard(this.game.rules);
-                break;
-            case "mcts-uct":
-                console.log(`%s is thinking.`, this.logName);
-                this.logic.init(this.game, this.isPlayer1);
-                this.game.board = this.logic.getNextState();
-                break;
-            case "mcts-uct-enhanced":
-                console.log(`%s is thinking.`, this.logName);
-                this.logic.init(this.game, this.isPlayer1);
-                this.game.board = this.logic.getNextState();
-                break;
-            default:
-                console.error("Error: invalid agent name used to choose next state.");
-                break;
+            this.game.board = GetRandomNextBoard(this.game.rules);
+        }
+        else
+        {
+            console.log(`%s is thinking.`, this.logName);
+            this.logic.init(this.game, this.isPlayer1);
+            this.game.board = this.logic.getNextState();
         }
     }
 }  // End class

@@ -46,6 +46,7 @@ for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
         console.log("Tournament update:");
         console.log(`%s wins: %s`, agents[0].logName, agents[0].winCount);
         console.log(`%s wins: %s`, agents[1].logName, agents[1].winCount);
+        
         game = getNewGame();
         if (SHOULD_ALTERNATE_PLAY_ORDER)
         {

@@ -3,12 +3,12 @@
 export const SETUP = {
 
     // Tournament
-    AGENT_0 : "MCTS-UCT-ENHANCED", // Use Random, MCTS-UCT, or MCTS-UCT-ENHANCED
+    AGENT_0 : "MCTS-PUCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, or MCTS-PUCT
     AGENT_1 : "MCTS-UCT", 
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
-    TOURNAMENT_LENGTH : 100,  // Should be >= 1 game.
+    TOURNAMENT_LENGTH : 10,  // Should be >= 1 game.
 
     // MCTS-UCT
     SEARCH_TIME : 5000,  // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
@@ -16,7 +16,7 @@ export const SETUP = {
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where 0 is greedy.
     
     // MCTS-UCT Enhanced: Depth-Limited Evaluation & Tree Size Limits
-    TREE_DEPTH_LIMIT: 18, 
+    TREE_DEPTH_LIMIT: 16, 
     SIMULATION_DEPTH_LIMIT: 4, // Research says for many games, 4-8 is ideal. 
     ROOT_DEPTH_1_CHILD_CAPACITY: 64, 
     NODE_DEPTH_2_CHILD_CAPACITY: 8,

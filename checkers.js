@@ -553,9 +553,8 @@ export class CheckersRules
         return textRow;
     }
 
-    /// Predicts the game result, based on piece points.
-    /// Given pawns are worth 2 points, royals worth 3,
-    /// An advantage of more than 2 points predicts a Win, otherwise a Tie.
+    /// An eval function for simulations at a depth limit to guess the game result.
+    /// An advantage of more than a pawn predicts a Win, otherwise a Tie.
     /// Returns true for player1 win, false for loss, or null for tie.
     willPlayer1Win(board, isPlayer1)
     {
@@ -591,6 +590,64 @@ export class CheckersRules
         else if (OPPONENT_SCORE > ACTIVE_PLAYER_SCORE + PAWN_VALUE)
             return ( isPlayer1? false : true);
         return null;
+    }
+
+    /// Returns a prediction between (0,1) for the chance to win on a given board by a given player.
+    getPrediction(board, isPlayer1)
+    {
+        const ACTIVE_PAWN = isPlayer1? MAN : WOMAN;
+        const ACTIVE_ROYAL = isPlayer1? KING : QUEEN;
+        const OPPONENT_PAWN = isPlayer1? WOMAN : MAN;
+        const OPPONENT_ROYAL = isPlayer1? QUEEN : KING;
+
+        let activePawnCount = 0;
+        let activeRoyalCount = 0;
+        let opponentPawnCount = 0;
+        let opponentRoyalCount = 0;
+
+        // Count each piece type on the board.
+        for (let i = 0; i < BOARD_CELL_COUNT; i++)
+        {
+            if (board[i] === ACTIVE_PAWN)
+                activePawnCount++;
+            else if (board[i] === ACTIVE_ROYAL)
+                activeRoyalCount++;
+            else if (board[i] === OPPONENT_PAWN)
+                opponentPawnCount++;
+            else if (board[i] === OPPONENT_ROYAL)
+                opponentRoyalCount++;
+        }
+
+        /*
+            Predictions are based on the idea that a tie game has a 50% chance to win, and any advantage is added to this base.
+            Pawns are worth 50% less than royals, and the exact value of each was set by experimentation.
+        
+            Under the values given below, winning by 2 pawns results in a prediction of a 66% chance to win, from 50 + (8 * 2).
+            Likewise, winning by 1 pawn and 1 royal gives a 70% chance to win, from 50 + 8 + 12.
+            Values are clamped between (0,1), so a huge advantage and a grossly huge advantage get the same prediction. 
+        */
+
+        const PAWN_VALUE = 8;
+        const ROYAL_VALUE = 12;
+        const ACTIVE_PLAYER_SCORE = (PAWN_VALUE * activePawnCount) + (ROYAL_VALUE * activeRoyalCount);
+        const OPPONENT_SCORE = (PAWN_VALUE * opponentPawnCount) + (ROYAL_VALUE * opponentRoyalCount);
+
+        let advantage = 0;
+        let prediction = 0;
+        if (ACTIVE_PLAYER_SCORE > OPPONENT_SCORE)
+        {
+            advantage = (ACTIVE_PLAYER_SCORE - OPPONENT_SCORE) + 50;
+            prediction = (advantage >= 100) ? 1 - Number.EPSILON : ( advantage / 100);
+        }
+        else if (OPPONENT_SCORE > ACTIVE_PLAYER_SCORE)
+        {
+            advantage = (OPPONENT_SCORE - ACTIVE_PLAYER_SCORE) + 50;
+            prediction = (advantage >= 100) ? Number.EPSILON : ( 1 - (advantage / 100)); 
+        }
+        else
+            prediction = 0.5;
+
+        return prediction;
     }
 
 } // End class 
