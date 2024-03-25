@@ -42,7 +42,7 @@ function getIsPlayer1Winner(board, isPlayer1, rules)
         // Maybe continue.
         else if (depth < DEPTH_LIMIT)
         {
-            board = GetRandomNextBoard(rules);
+            board = GetRandomNextBoard(rules.nextPossibleBoards);
             isPlayer1 = !isPlayer1;
             depth++;
         }

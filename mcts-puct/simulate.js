@@ -1,7 +1,7 @@
 import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 
-const DEPTH_LIMIT = SETUP.SIMULATION_DEPTH_LIMIT;
+const DEPTH_LIMIT = SETUP.PUCT_SIMULATION_DEPTH_LIMIT;
 
 export function Simulate(child, rules)
 {
@@ -58,15 +58,20 @@ function GetPredictedNextBoard(currentIsPlayer1, rules)
 {
     // Choose the board that has the least predicted chance for the opponent to win.
     let bestPrediction = Number.MAX_VALUE;
-    let bestBoard = null;
+    let bestBoards = [];
     for (const NEXT_POSSIBLE_BOARD of rules.nextPossibleBoards)
     {
         const PREDICTION = rules.getPrediction(NEXT_POSSIBLE_BOARD, !currentIsPlayer1);
         if (PREDICTION < bestPrediction)
         {
             bestPrediction = PREDICTION;
-            bestBoard = NEXT_POSSIBLE_BOARD;
+            bestBoards = [];
+            bestBoards.push(NEXT_POSSIBLE_BOARD);
+        }
+        else if (PREDICTION === bestPrediction)
+        {
+            bestBoards.push(NEXT_POSSIBLE_BOARD);
         }
     } 
-    return bestBoard;
+    return (bestBoards.length > 1) ? GetRandomNextBoard(bestBoards) : bestBoards[0];
 }

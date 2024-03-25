@@ -70,7 +70,7 @@ export class Agent
     {
         if (this.name === "random")
         {
-            this.game.board = GetRandomNextBoard(this.game.rules);
+            this.game.board = GetRandomNextBoard(this.game.rules.nextPossibleBoards);
         }
         else
         {

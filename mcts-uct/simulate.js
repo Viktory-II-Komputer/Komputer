@@ -39,7 +39,7 @@ function getisPlayer1Winner(board, isPlayer1, rules)
         // Continue game.
         else
         {
-            board = GetRandomNextBoard(rules);
+            board = GetRandomNextBoard(rules.nextPossibleBoards);
             isPlayer1 = !isPlayer1;
         }
     }

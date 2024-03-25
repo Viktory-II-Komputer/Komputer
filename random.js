@@ -1,11 +1,11 @@
 
 /// Functions for random behavior.
 
-export function GetRandomNextBoard(rules)
+export function GetRandomNextBoard(nextPossibleBoards)
 {
-    const MAX = rules.nextPossibleBoards.length;
+    const MAX = nextPossibleBoards.length;
     const RANDOM_INDEX = getRandomIndexExclusive(MAX);
-    return rules.nextPossibleBoards[RANDOM_INDEX];
+    return nextPossibleBoards[RANDOM_INDEX];
 }
 
 // Returns random key from Set or Map.
