@@ -24,8 +24,10 @@ export class MCTS_PUCT_Logic
     {
         this.endSearchTime = (Date.now() + SEARCH_TIME);
         this.rootNode = new Node(game.board, isPlayer1);
-        this.rules = this.getSimulationRules(game);
-
+        if (this.rules === null)
+        {
+            this.rules = this.getSimulationRules(game);
+        }
         this.expandRoot(game.rules.nextPossibleBoards);
         for (const CHILD of this.rootNode.children.cache.keys())
         {

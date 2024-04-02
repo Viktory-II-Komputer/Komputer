@@ -1,6 +1,8 @@
 import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 
+const TURN_LIMIT = SETUP.MAX_TURNS_PER_GAME;
+
 export function Simulate(child, rules)
 {
     let result = 0;
@@ -22,6 +24,7 @@ export function Simulate(child, rules)
 function getisPlayer1Winner(board, isPlayer1, rules)
 {
     // Game loop for sim
+    let turn = 0;
     while(true)
     {
         const HAS_NEXT_STATE = rules.hasGeneratedNextPossibleStates(board, isPlayer1);
@@ -32,7 +35,7 @@ function getisPlayer1Winner(board, isPlayer1, rules)
             return rules.winner.isPlayer1;
         }
         // Check for a tie.
-        else if(!HAS_NEXT_STATE)
+        else if( !HAS_NEXT_STATE || !(turn < TURN_LIMIT) )
         {
             return null;
         }
@@ -41,6 +44,7 @@ function getisPlayer1Winner(board, isPlayer1, rules)
         {
             board = GetRandomNextBoard(rules.nextPossibleBoards);
             isPlayer1 = !isPlayer1;
+            turn++;
         }
     }
 }
