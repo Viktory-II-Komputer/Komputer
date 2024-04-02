@@ -1,6 +1,6 @@
+import { SETUP } from "./setup.js";
 import { Agent } from './agent.js';
 import { Game } from './game.js';
-import { SETUP } from "./setup.js";
 
 const MAX_TURN = SETUP.MAX_TURNS_PER_GAME;
 const MAX_GAME_COUNT = SETUP.TOURNAMENT_LENGTH;
@@ -8,9 +8,9 @@ const SHOULD_ALTERNATE_PLAY_ORDER = SETUP.SHOULD_ALTERNATE_PLAY_ORDER;
 
 // Initialization 
 let game = new Game(SETUP.GAME_TO_PLAY);
-let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)]
-agents[0].begin(game);
-agents[1].begin(game, false);
+let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)];
+await agents[0].begin(game);
+await agents[1].begin(game, false);
 updateDisplay();
 
 // Tournament Loop

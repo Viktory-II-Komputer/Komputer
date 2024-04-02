@@ -1,11 +1,13 @@
+import { MCTS_PUCT_NET_Logic } from "./mcts-puct-net/mcts_putc_net.js";
 import { MCTS_PUCT_Logic } from "./mcts-puct/mcts_putc.js";
 import { MCTS_UCT_Enhanced_Logic } from "./mcts-uct-enhanced/mcts_utc_enhanced.js";
 import { MCTS_UCT_Logic } from "./mcts-uct/mcts_utc.js";
 import { GetRandomNextBoard } from "./random.js";
+import { NeuralNet } from "./setup.js";
 
 export class Agent
 {
-    constructor(name)
+    constructor(name, network = null)
     {
         this.logName = name;
         this.name = name.toLowerCase();
@@ -23,6 +25,10 @@ export class Agent
             case "mcts-puct":
                 this.logic = new MCTS_PUCT_Logic();
                 break;
+            case "mcts-puct-net":
+                this.logic = new MCTS_PUCT_NET_Logic();
+                this.requiresNetwork = true;
+                break;
             default:
                 console.error("Error: invalid agent name passed to Agent constructor.");
                 break;
@@ -33,10 +39,14 @@ export class Agent
         console.log(this.logName + " Agent constructed.");
     }
 
-    begin(game, isPlayer1 = true)
+    async begin(game, isPlayer1 = true)
     {
         this.game = game;
         this.isPlayer1 = isPlayer1;
+        if (this.requiresNetwork)
+        {
+            this.logic.network = await NeuralNet(this.logName);
+        }
         if (isPlayer1)
         {
             game.logBoard();
