@@ -110,10 +110,10 @@ export class CheckersRules
           if (board[i] === playerPawn || board[i] === playerRoyal)
           {
              // Calculate forward indexes near piece
-             let fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
-             let fwdRightIndex = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
-             let fwdLeftJumpIndex = isPlayer1 ? this.northWestJumpGet(i) : this.southEastJumpGet(i);
-             let fwdRightJumpIndex = isPlayer1 ? this.northEastJumpGet(i) : this.southWestJumpGet(i);
+             const fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
+             const fwdRightIndex = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
+             const fwdLeftJumpIndex = isPlayer1 ? this.northWestJumpGet(i) : this.southEastJumpGet(i);
+             const fwdRightJumpIndex = isPlayer1 ? this.northEastJumpGet(i) : this.southWestJumpGet(i);
              // Check for forward left jumps
              if (fwdLeftIndex !== null && fwdLeftJumpIndex !== null &&
                 board[fwdLeftJumpIndex] === EMPTY &&
@@ -133,10 +133,10 @@ export class CheckersRules
              if (board[i] === playerRoyal)
              {
                 // Calculate backward cells near the piece
-                let backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
-                let backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
-                let backLeftJumpIndex = isPlayer1 ? this.southWestJumpGet(i) : this.northEastJumpGet(i);
-                let backRightJumpIndex = isPlayer1 ? this.southEastJumpGet(i) : this.northWestJumpGet(i);
+                const backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
+                const backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
+                const backLeftJumpIndex = isPlayer1 ? this.southWestJumpGet(i) : this.northEastJumpGet(i);
+                const backRightJumpIndex = isPlayer1 ? this.southEastJumpGet(i) : this.northWestJumpGet(i);
                 // Check for back left jumps
                 if (backLeftIndex !== null && backLeftJumpIndex !== null &&
                    board[backLeftJumpIndex] === EMPTY &&
@@ -171,31 +171,31 @@ export class CheckersRules
         for (let i = 0; i < BOARD_CELL_COUNT; i++) {
             if (board[i] === playerPawn || board[i] === playerRoyal) {
                 // Calculate forward indexes near piece 
-                let fwdLeftIndex = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
-                let fwdRightIndex = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
+                const FWD_LEFT_INDEX = isPlayer1 ? this.northWestGet(i) : this.southEastGet(i);
+                const FWD_RIGHT_INDEX = isPlayer1 ? this.northEastGet(i) : this.southWestGet(i);
 
                 // Check if piece can move to adjacent cell
-                if (fwdLeftIndex !== null && board[fwdLeftIndex] === EMPTY) {
+                if (FWD_LEFT_INDEX !== null && board[FWD_LEFT_INDEX] === EMPTY) {
                     // Make the move on a new board.
-                    let [newBoard, _] = this.getNewBoardFromMove(board, i, fwdLeftIndex);
+                    const [NEW_BOARD, _] = this.getNewBoardFromMove(board, i, FWD_LEFT_INDEX);
                     // Add new board to next possible boards
-                    this.nextPossibleBoards.push(newBoard);
+                    this.nextPossibleBoards.push(NEW_BOARD);
                 }
-                if (fwdRightIndex !== null && board[fwdRightIndex] === EMPTY) {
-                    let [newBoard, _] = this.getNewBoardFromMove(board, i, fwdRightIndex);
-                    this.nextPossibleBoards.push(newBoard);
+                if (FWD_RIGHT_INDEX !== null && board[FWD_RIGHT_INDEX] === EMPTY) {
+                    const [NEW_BOARD, _] = this.getNewBoardFromMove(board, i, FWD_RIGHT_INDEX);
+                    this.nextPossibleBoards.push(NEW_BOARD);
                 }
                 // Check for king moves
                 if (board[i] === playerRoyal) {
-                    let backLeftIndex = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
-                    let backRightIndex = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
-                    if (backLeftIndex !== null && board[backLeftIndex] === EMPTY) {
-                        let [newBoard, _] = this.getNewBoardFromMove(board, i, backLeftIndex);
-                        this.nextPossibleBoards.push(newBoard);
+                    const BACK_LEFT_INDEX = isPlayer1 ? this.southWestGet(i) : this.northEastGet(i);
+                    const BACK_RIGHT_INDEX = isPlayer1 ? this.southEastGet(i) : this.northWestGet(i);
+                    if (BACK_LEFT_INDEX !== null && board[BACK_LEFT_INDEX] === EMPTY) {
+                        const [NEW_BOARD, _] = this.getNewBoardFromMove(board, i, BACK_LEFT_INDEX);
+                        this.nextPossibleBoards.push(NEW_BOARD);
                     }
-                    if (backRightIndex !== null && board[backRightIndex] === EMPTY) {
-                        let [newBoard, _] = this.getNewBoardFromMove(board, i, backRightIndex);
-                        this.nextPossibleBoards.push(newBoard);
+                    if (BACK_RIGHT_INDEX !== null && board[BACK_RIGHT_INDEX] === EMPTY) {
+                        const [NEW_BOARD, _] = this.getNewBoardFromMove(board, i, BACK_RIGHT_INDEX);
+                        this.nextPossibleBoards.push(NEW_BOARD);
                     }
                 }
             }

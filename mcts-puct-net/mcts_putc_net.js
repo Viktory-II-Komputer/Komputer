@@ -41,7 +41,7 @@ export class MCTS_PUCT_NET_Logic
     {
         while (this.hasTimeToThink() && this.hasMoreIterations())
         {
-            const NODE_TO_VISIT = SelectNode(this.rootNode, this.rules, this.network);
+            const NODE_TO_VISIT = SelectNode(this.rootNode, this.network);
             if (NODE_TO_VISIT.depth < DEPTH_LIMIT)
             {
                 Expand(NODE_TO_VISIT, this.rules);

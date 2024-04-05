@@ -1,9 +1,9 @@
 export function State(board, isPlayer1)
 {
     let state = isPlayer1? [1] : [0];
-    for (const character of board)
+    for (const CHARACTER of board)
     {
-      switch (character)
+      switch (CHARACTER)
       {
         case "+":
           state.push(0.5);
@@ -21,7 +21,7 @@ export function State(board, isPlayer1)
             state.push(0.18);
           break;
         default:
-          console.error("Bad board input. Expected +,W,M,K,Q. Got: " + character);
+          console.error("Bad board input. Expected +,W,M,K,Q. Got: " + CHARACTER);
         }
     }
     return state;

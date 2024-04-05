@@ -2,6 +2,7 @@ import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 
 const DEPTH_LIMIT = SETUP.PUCT_SIMULATION_DEPTH_LIMIT;
+const TURN_LIMIT = SETUP.MAX_TURNS_PER_GAME;
 
 export function Simulate(child, rules)
 {
@@ -24,6 +25,7 @@ export function Simulate(child, rules)
 function getIsPlayer1Winner(board, isPlayer1, rules)
 {
     // Game loop for sim
+    let turn = 0;
     let depth = 0;
     while(true)
     {

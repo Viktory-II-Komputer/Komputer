@@ -11,19 +11,20 @@ let game = new Game(SETUP.GAME_TO_PLAY);
 let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)];
 await agents[0].begin(game);
 await agents[1].begin(game, false);
+console.log("Both players limit children below depth 1 to 8.")
 updateDisplay();
 
 // Tournament Loop
 const LAST_GAME_COUNT = MAX_GAME_COUNT - 1;
 for (let gameCount = 0; gameCount < MAX_GAME_COUNT; gameCount++)
 {
-    let agent = getFirstAgent(agents); 
+    let currentAgent = getFirstAgent(agents); 
     let turn = 0;
     // Game Turn Loop
     while (game.isDone === false && turn < MAX_TURN) 
     {
-        agent.continue(++turn);
-        agent = getNextAgent(agents, agent);  
+        currentAgent.continue(++turn);
+        currentAgent = getNextAgent(agents, currentAgent);  
     }
     console.log(`End game %s.`, gameCount + 1);
 

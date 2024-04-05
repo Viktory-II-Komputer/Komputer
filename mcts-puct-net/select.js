@@ -4,7 +4,7 @@ import { State } from "./state.js";
 const DEPTH_LIMIT = SETUP.PUCT_TREE_DEPTH_LIMIT; 
 const UCB_C = SETUP.UCB_FORMULA_CONSTANT; 
 
-export function SelectNode(root, rules, network)
+export function SelectNode(root, network)
 {
     let bestUCB = 0;
     let bestChild = null;

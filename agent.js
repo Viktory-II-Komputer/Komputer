@@ -43,7 +43,7 @@ export class Agent
     {
         this.game = game;
         this.isPlayer1 = isPlayer1;
-        if (this.requiresNetwork)
+        if (this.requiresNetwork && !this.logic.network)
         {
             this.logic.network = await NeuralNet(this.logName);
         }
