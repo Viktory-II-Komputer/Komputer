@@ -1,7 +1,7 @@
 import { SETUP } from "../setup.js";
 import { State } from "./state.js";
 
-const DEPTH_LIMIT = SETUP.PUCT_TREE_DEPTH_LIMIT; 
+const DEPTH_LIMIT = SETUP.PUCT_NET_TREE_DEPTH_LIMIT; 
 const UCB_C = SETUP.UCB_FORMULA_CONSTANT; 
 
 export function SelectNode(root, network)

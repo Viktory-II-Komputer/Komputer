@@ -43,14 +43,14 @@ function initCapacity (depth)
 {
   if (depth === 1)
   {
-    return SETUP.PUCT_ROOT_DEPTH_1_CHILD_CAPACITY;
+    return SETUP.PUCT_NET_ROOT_DEPTH_1_CHILD_CAPACITY;
   }
   else if (depth === 2)
   {
-    return SETUP.PUCT_NODE_DEPTH_2_CHILD_CAPACITY;
+    return SETUP.PUCT_NET_NODE_DEPTH_2_CHILD_CAPACITY;
   }
   else
   {
-    return SETUP.PUCT_NODE_GENERAL_CHILD_CAPACITY;
+    return SETUP.PUCT_NET_NODE_GENERAL_CHILD_CAPACITY;
   }
 } 

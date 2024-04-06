@@ -9,7 +9,7 @@ import { CheckersRules } from "../checkers.js";
 
 const SEARCH_TIME = SETUP.SEARCH_TIME;
 const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;
-const DEPTH_LIMIT = SETUP.PUCT_TREE_DEPTH_LIMIT;
+const DEPTH_LIMIT = SETUP.PUCT_NET_TREE_DEPTH_LIMIT;
 
 export class MCTS_PUCT_NET_Logic
 {

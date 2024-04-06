@@ -11,7 +11,6 @@ let game = new Game(SETUP.GAME_TO_PLAY);
 let agents = [new Agent(SETUP.AGENT_0), new Agent(SETUP.AGENT_1)];
 await agents[0].begin(game);
 await agents[1].begin(game, false);
-console.log("Both players limit children below depth 1 to 8.")
 updateDisplay();
 
 // Tournament Loop

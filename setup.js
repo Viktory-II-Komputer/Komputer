@@ -2,8 +2,8 @@
 export const SETUP = {
 
     // Tournament 
-    AGENT_0 : "MCTS-PUCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET
-    AGENT_1 : "MCTS-PUCT-NET", 
+    AGENT_0 : "MCTS-UCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET
+    AGENT_1 : "MCTS-PUCT", 
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
@@ -25,11 +25,17 @@ export const SETUP = {
     PUCT_TREE_DEPTH_LIMIT: 18,  
     PUCT_SIMULATION_DEPTH_LIMIT: 4,  
     PUCT_ROOT_DEPTH_1_CHILD_CAPACITY: 64, 
-    PUCT_NODE_DEPTH_2_CHILD_CAPACITY: 8,
+    PUCT_NODE_DEPTH_2_CHILD_CAPACITY: 12,
     PUCT_NODE_GENERAL_CHILD_CAPACITY: 8,  
     
     // MCTS-PUCT-NET
-    NETWORK_PATH: "./network/checkers_net_sim-based_4-5-2024_1546-10m.json",
+    NETWORK_PATH: "./network/checkers_net_sim-based_4-5-2024_1601-10m.json",
+    HIDDEN_LAYERS: [36, 16, 4],
+    PUCT_NET_TREE_DEPTH_LIMIT: 18,  
+    PUCT_NET_SIMULATION_DEPTH_LIMIT: 6,  
+    PUCT_NET_ROOT_DEPTH_1_CHILD_CAPACITY: 64, 
+    PUCT_NET_NODE_DEPTH_2_CHILD_CAPACITY: 12,
+    PUCT_NET_NODE_GENERAL_CHILD_CAPACITY: 8,  
 
     // Rewards: expects positive numbers
     REWARD : {
@@ -45,7 +51,7 @@ export async function NeuralNet(logname)
             .then(async data =>  { 
                 await import("https://cdn.rawgit.com/BrainJS/brain.js/45ce6ffc/browser.js");
                 console.log(`${logname} initializes a neural network.`);
-                let net = new brain.NeuralNetwork({ inputSize: 33, hiddenLayers: [36, 16, 4], outputSize: 1, activation: 'relu' });
+                let net = new brain.NeuralNetwork({ inputSize: 33, hiddenLayers: SETUP.HIDDEN_LAYERS, outputSize: 1, activation: 'relu' });
                 net.fromJSON(data);
                 return net;        
         }).catch(error => console.error(error))

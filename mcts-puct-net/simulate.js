@@ -2,7 +2,7 @@ import { GetRandomNextBoard } from "../random.js";
 import { SETUP } from "../setup.js";
 import { State } from "./state.js";
 
-const DEPTH_LIMIT = SETUP.PUCT_SIMULATION_DEPTH_LIMIT;
+const DEPTH_LIMIT = SETUP.PUCT_NET_SIMULATION_DEPTH_LIMIT;
 const TURN_LIMIT = SETUP.MAX_TURNS_PER_GAME;
 
 export function Simulate(child, rules, network)
