@@ -1,2 +1,3 @@
 #ignore the test setup file
 setup.js
+.vscode/
