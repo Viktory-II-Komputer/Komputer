@@ -36,7 +36,7 @@ export class MCTS_UCT_Logic
 
     getNextState()
     {
-        while (this.isTimeToThink() && (this.rootNode.visitCount < MAX_ITERATIONS))
+        while (this.hasTimeToThink() && (this.hasMoreIterations()))
         {
             const NODE_TO_VISIT = SelectNode(this.rootNode);
             Expand(NODE_TO_VISIT, this.rules);
@@ -53,9 +53,14 @@ export class MCTS_UCT_Logic
         return this.getBest();
     }
 
-    isTimeToThink()
+    hasTimeToThink()
     {
         return (Date.now() < this.endSearchTime);
+    }
+
+    hasMoreIterations()
+    {
+        return this.rootNode.visitCount < MAX_ITERATIONS
     }
 
     getBest()
