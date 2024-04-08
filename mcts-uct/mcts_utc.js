@@ -5,8 +5,8 @@ import { Expand } from "./expand.js";
 import { Simulate } from "./simulate.js";
 import { Backpropagate } from "./backpropagate.js";
 import { SETUP } from "../setup.js";
-import { TicTacToeRules } from "../tictactoe.js";
-import { CheckersRules } from "../checkers.js";
+import { TicTacToeRules } from "../game-rules/tictactoe.js";
+import { CheckersRules } from "../game-rules/checkers.js";
 
 const SEARCH_TIME = SETUP.SEARCH_TIME;
 const MAX_ITERATIONS = SETUP.MAX_ITERATIONS;

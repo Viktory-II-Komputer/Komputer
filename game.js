@@ -1,5 +1,5 @@
-import { CheckersRules } from "./checkers.js";
-import { TicTacToeRules } from "./tictactoe.js";
+import { CheckersRules } from "./game-rules/checkers.js";
+import { TicTacToeRules } from "./game-rules/tictactoe.js";
 
 export class Game 
 {

@@ -2,8 +2,8 @@
 export const SETUP = {
 
     // Tournament 
-    AGENT_0 : "MCTS-UCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET
-    AGENT_1 : "MCTS-PUCT", 
+    AGENT_0 : "MCTS-PUCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET
+    AGENT_1 : "MCTS-PUCT-NET", 
     GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
     SHOULD_ALTERNATE_PLAY_ORDER : true, 
     MAX_TURNS_PER_GAME : 100,
@@ -44,7 +44,7 @@ export const SETUP = {
     }
 }
 
-export async function NeuralNet(logname)
+export async function NeuralNet(logname = "An agent")
 {
     return await (fetch(SETUP.NETWORK_PATH)
         .then(response => response.json())

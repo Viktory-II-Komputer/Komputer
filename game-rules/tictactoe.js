@@ -1,7 +1,7 @@
 
 /// Tic Tac Toe
 
-import { Winner } from "./winner.js";
+import { Winner } from "../winner.js";
 
 const player1Mark = 'X'
 const player2Mark = 'O' 
@@ -90,11 +90,15 @@ export class TicTacToeRules
             ((board[2] ===   opponentMark) && (board[4] ===   opponentMark) && (board[6] ===   opponentMark)));  // Diagonal up
     }
 
-    /// Interface to predict the winner.
-    /// Returns null, indicating a tie. 
-    /// Don't expect to use this, but a severely depth-limited agent might call it. 
+    /// Don't expect to use these for TicTacToe, but if a PUCT agent calls, it'll cause no harm. 
+
     willPlayer1Win(board, isPlayer1)
     {
         return null;
+    }
+
+    getPrediction(board, isPlayer1)
+    {
+        return 0;
     }
 }
