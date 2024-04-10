@@ -97,8 +97,7 @@ export class Agent
             let movements = [];
             const ORIGIN = this.game.rules.deriveMovements(this.game.lastBoard, this.game.board, this.isPlayer1, movements);
             console.log("Next move origin: " + ORIGIN);
-            console.log("Next movements: ");
-            console.log(movements);
+            console.log(`Next movements: [${movements.join()}]`);
         }
     }
 }  // End class
