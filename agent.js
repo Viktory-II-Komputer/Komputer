@@ -45,12 +45,14 @@ export class Agent
         this.isPlayer1 = isPlayer1;
         if (this.requiresNetwork && !this.logic.network)
         {
-            this.logic.network = await NeuralNet(this.logName);
+            this.logic.network = await NeuralNet();
         }
         if (isPlayer1)
         {
+            console.log("= = = = =");
             game.logBoard();
             console.log('%s begins.', this.logName);
+            console.log("= = = = =");
         }
     }
 
@@ -73,6 +75,7 @@ export class Agent
             this.chooseNextState();
             this.game.logBoard();
             console.log(`Turn %s: %s`, turnNumberToLog, this.logName); 
+            console.log("= = = = =");
         }
     }
 
@@ -84,9 +87,17 @@ export class Agent
         }
         else
         {
+            // Cache current board.
+            this.game.lastBoard = this.game.board;
             console.log(`%s is thinking.`, this.logName);
+            // Set next board.
             this.logic.init(this.game, this.isPlayer1);
             this.game.board = this.logic.getNextState();
+            // Derive piece movements.
+            let movements = [];
+            const ORIGIN = this.game.rules.deriveMovements(this.game.lastBoard, this.game.board, this.isPlayer1, movements);
+            console.log("Next move origin: " + ORIGIN);
+            console.log(`Next movements: [${movements.join()}]`);
         }
     }
 }  // End class
