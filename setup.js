@@ -2,16 +2,17 @@
 export const SETUP = {
 
     // Tournament 
-    AGENT_0 : "MCTS-UCT", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET
-    AGENT_1 : "MCTS-PUCT-NET", 
-    GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers
-    SHOULD_ALTERNATE_PLAY_ORDER : true, 
-    MAX_TURNS_PER_GAME : 100,
-    TOURNAMENT_LENGTH : 100,  // Should be >= 1 game
+    AGENT_0 : "MCTS-PUCT-NET", // Use Random, MCTS-UCT, MCTS-UCT-ENHANCED, MCTS-PUCT, or MCTS-PUCT-NET.
+    AGENT_1 : "MCTS-PUCT", 
+    GAME_TO_PLAY : "Checkers",  // Use TicTacToe or Checkers.
+    SPECIFY_INITIAL_BOARD: null,  // Expects null (default) or string. Example TicTacToe string: "X--OO-X--"
+    SHOULD_ALTERNATE_PLAY_ORDER : true, // Per game, switch sides.
+    MAX_TURNS_PER_GAME : 1,  // Should be >=1 turn.
+    TOURNAMENT_LENGTH : 1,  // Should be >= 1 game.
     
     // For all (non-random) agents 
     SEARCH_TIME : 1000, // In milliseconds: 1000 == 1 second. If debugging with break points, set to NUMBER.MAX_VALUE.
-    MAX_ITERATIONS : Number.MAX_VALUE, //Number.MAX_VALUE,  // If using break points, set this, not time. 
+    MAX_ITERATIONS : Number.MAX_VALUE, // If using break points, set this, not time. 
     UCB_FORMULA_CONSTANT : 2,  // Controls exploit-explore ratio, where 0 is greedy.
     
     // MCTS-UCT Enhanced: Depth-Limited Evaluation & Tree Size Limits

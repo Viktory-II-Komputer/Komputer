@@ -3,7 +3,7 @@ import { TicTacToeRules } from "./game-rules/tictactoe.js";
 
 export class Game 
 {
-    constructor(gameName)
+    constructor(gameName, initialBoard = null)
     {
         this.logName = gameName;
         this.name = gameName.toLowerCase();
@@ -16,13 +16,13 @@ export class Game
                 console.log("Constructing Tic Tac Toe.");
                 this.rules = new TicTacToeRules();
                 [this.board, this.boardHeight, this.boardWidth,
-                 this.hasSpecialPattern] = this.rules.getNewBoard();
+                 this.hasSpecialPattern] = this.rules.getNewBoard(initialBoard);
                 break;
             case "checkers":
                 console.log("Constructing Checkers.");
                 this.rules = new CheckersRules();
                 [this.board, this.boardHeight, this.boardWidth,
-                 this.hasSpecialPattern] = this.rules.getNewBoard();
+                 this.hasSpecialPattern] = this.rules.getNewBoard(initialBoard);
                 break;
             default:
                 console.error("Error: invalid game.")

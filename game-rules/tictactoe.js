@@ -9,7 +9,7 @@ const EMPTY = '-'
 const BOARD_WIDTH = 3;        
 const BOARD_HEIGHT = 3;
 const BOARD_CELL_COUNT = 9;
-const HAS_SPECIAL_PATTERN = false;  // For board logs.
+const HAS_SPECIAL_PATTERN = false;  // For board logs. False defaults to a grid.
 
 export class TicTacToeRules
 {
@@ -19,9 +19,10 @@ export class TicTacToeRules
         this.winner = new Winner();
     }
 
-    getNewBoard()
+    getNewBoard(initialBoard)
     {
-        return ["---------", BOARD_HEIGHT, BOARD_WIDTH, HAS_SPECIAL_PATTERN] 
+        const BOARD = (initialBoard === null)? "---------" : initialBoard;
+        return [BOARD, BOARD_HEIGHT, BOARD_WIDTH, HAS_SPECIAL_PATTERN];
     }
 
     hasGeneratedNextPossibleStates(board, isPlayer1)

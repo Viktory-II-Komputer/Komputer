@@ -39,9 +39,10 @@ export class CheckersRules
         this.transitionMoves = [];
     }
 
-    getNewBoard()
+    getNewBoard(initialBoard)
     {
-        return ["WWWWWWWWWWWW++++++++MMMMMMMMMMMM", BOARD_HEIGHT, BOARD_WIDTH, HAS_CHECKERS_PATTERN]; 
+        const BOARD = (initialBoard === null)? "WWWWWWWWWWWW++++++++MMMMMMMMMMMM" : initialBoard;
+        return [BOARD, BOARD_HEIGHT, BOARD_WIDTH, HAS_CHECKERS_PATTERN]; 
     }
 
     hasGeneratedNextPossibleStates(board, isPlayer1)
